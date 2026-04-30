@@ -17,9 +17,13 @@ O **Trampo Fácil** não é apenas uma plataforma de vagas. É um ecossistema in
 
 ---
 
-## 🧠 Trampo IA Engine (v3.0)
+## 🧠 Command Hub & Trampo IA Engine (v3.5)
 
-O coração do Trampo Fácil é o **Trampo IA**, um módulo de inteligência de mercado que analisa dados em tempo real para otimizar o ecossistema:
+O coração do Trampo Fácil é o **Command Hub**, um centro de comando unificado que integra a navegação global com o motor proprietário **Trampo IA**. Agora presente em todas as páginas, a IA analisa o contexto do usuário e fornece insights em tempo real:
+
+- **Navegação Unificada**: Hub de comando com glassmorphism sincronizado para uma experiência fluida.
+- **Mensagens Dinâmicas**: Saudações e dicas humanizadas baseadas no horário, dia e comportamento do usuário.
+- **Inteligência de Mercado**: Análise contínua de tendências de contratação e performance.
 
 ### Para Recrutadores
 - **Score de Performance**: Avalia a atratividade da vaga de 0 a 100%.

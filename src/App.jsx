@@ -18,11 +18,6 @@ function App() {
       <Router>
         <div className="page-wrapper">
           <Header />
-          <div className="global-ai-bar">
-            <div className="container">
-              <AIGreeting variant="global" />
-            </div>
-          </div>
           <main className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
