@@ -1,18 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Rocket, Zap, Sparkles, Target, Users, ShieldCheck, 
-  ArrowRight, MessageCircle, BarChart, Building2, Flame,
-  CheckCircle2, MousePointer2, Smartphone, Globe, AlertCircle,
-  XCircle, CheckCircle, Brain, Search, Send, TrendingUp, Heart,
-  ChevronRight, Laptop, Fingerprint, Activity, Layers, Cpu, Eye,
-  Command, Terminal, Code, PieChart, LineChart, Star, SearchCode
+  Zap, Sparkles, Users, 
+  ArrowRight, Building2, 
+  Globe, AlertCircle,
+  CheckCircle, Brain, TrendingUp, 
+  ChevronRight, Activity, Layers, Cpu,
+  Star, SearchCode
 } from 'lucide-react';
 import './About.css';
 
 export function About() {
   const [activeFeature, setActiveFeature] = useState(0);
-  const containerRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);

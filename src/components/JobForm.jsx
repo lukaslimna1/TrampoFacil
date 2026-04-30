@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useToast } from '../context/ToastContextCore';
 import './JobForm.css';
-import { JobCard } from './JobCard';
 import trampoAI from '../utils/trampoAI';
 import { 
   ShieldCheck, Zap, Star, Briefcase, Users, Eye, Phone, MapPin, Smile, 
@@ -88,8 +88,8 @@ const BENEFIT_CATEGORIES = [
   }
 ];
 
-// Flat list para facilitar buscas
-const PREDEFINED_BENEFITS = BENEFIT_CATEGORIES.flatMap(c => c.benefits);
+// Flat list removida (não utilizada)
+
 
 const DEFAULT_FORM = {
   titulo: '',
@@ -126,10 +126,14 @@ const DEFAULT_FORM = {
     endereco: ''
   },
   is_urgent: false,
-  is_featured: false
+  is_featured: false,
+  recruiter_email: ''
 };
 
-export function JobForm({ initialData, onSubmit, buttonText }) {
+export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hideHero }) {
+  const { showToast } = useToast();
+  const isEdit = !!initialData;
+
   const [formData, setFormData] = useState(() => {
     if (initialData) {
       return {
@@ -141,7 +145,8 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
     return DEFAULT_FORM;
   });
 
-  const [error, setError] = useState('');
+  // Removido estado de erro local para usar Toasts globais
+  // const [error, setError] = useState('');
 
   // UX Inteligente Toggles
   const [isConfidencial, setIsConfidencial] = useState(false);
@@ -151,8 +156,20 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
   // Estados Locais API IBGE
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]);
-  const [selectedEstado, setSelectedEstado] = useState('');
-  const [selectedCidade, setSelectedCidade] = useState('');
+  const [selectedEstado, setSelectedEstado] = useState(() => {
+    if (initialData?.cidade && initialData.cidade !== 'Remoto') {
+      const parts = initialData.cidade.split(' - ');
+      return (parts.length === 2 && parts[1]) ? parts[1] : '';
+    }
+    return '';
+  });
+  const [selectedCidade, setSelectedCidade] = useState(() => {
+    if (initialData?.cidade && initialData.cidade !== 'Remoto') {
+      const parts = initialData.cidade.split(' - ');
+      return parts[0] || '';
+    }
+    return '';
+  });
 
   useEffect(() => {
     fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
@@ -167,21 +184,18 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
         .then(res => res.json())
         .then(data => setCidades(data))
         .catch(err => console.error(err));
-    } else {
-      setCidades([]);
     }
   }, [selectedEstado]);
 
-  // Recarregar cidade se for edit (initialData)
+  // Efeito para sincronizar cidades ao montar se já tiver estado (Edit mode)
   useEffect(() => {
-    if (initialData && initialData.cidade && initialData.cidade !== 'Remoto') {
-      const parts = initialData.cidade.split(' - ');
-      if (parts.length === 2 && parts[1]) {
-        setSelectedEstado(parts[1]);
-        setSelectedCidade(parts[0]);
-      }
+    if (selectedEstado && cidades.length === 0) {
+      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedEstado}/municipios?orderBy=nome`)
+        .then(res => res.json())
+        .then(data => setCidades(data))
+        .catch(err => console.error(err));
     }
-  }, [initialData]);
+  }, [selectedEstado, cidades.length]);
 
   const handleDetailKeyDown = (e, field) => {
     if (e.key === 'Enter') {
@@ -221,7 +235,8 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
   const jobScore = aiAnalysis.total;
   const marketData = aiAnalysis.market;
   const checklist = aiAnalysis.checklist;
-  const performanceLevel = aiAnalysis.performance;
+  // performanceLevel removido (não utilizado)
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -276,12 +291,12 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
     e.preventDefault();
 
     // Validação de localização
-    let finalCidade = formData.cidade;
+    let finalCidade;
     if (formData.modalidade_trabalho === 'Remoto') {
       finalCidade = 'Remoto';
     } else {
       if (!selectedEstado || !selectedCidade) {
-        setError('Por favor, selecione o Estado e a Cidade em que a vaga será exercida.');
+        showToast('Por favor, selecione o Estado e a Cidade em que a vaga será exercida.', 'warning');
         return;
       }
       finalCidade = `${selectedCidade} - ${selectedEstado}`;
@@ -290,7 +305,7 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
     // Validação de contato
     const { whatsapp, email, link } = formData.contato;
     if (!whatsapp && !email && !link) {
-      setError('É obrigatório informar pelo menos um meio de contato (WhatsApp, Email ou Link)');
+      showToast('É obrigatório informar pelo menos um meio de contato (WhatsApp, Email ou Link)', 'warning');
       return;
     }
 
@@ -309,7 +324,7 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
       formDataTratado.horario = '';
     }
 
-    setError('');
+    // setError('');
     onSubmit(formDataTratado);
   };
 
@@ -333,20 +348,33 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
   return (
     <div className="job-form-page-wrapper">
       {/* HERO RECRUITER PREMIUM (Style from Home) */}
-      <section className="jd-recruiter-hero-premium">
-         <div className="tech-glow-orb"></div>
-         <div className="container hero-content-top">
-            <div className="jd-social-greeting-v2">
-               <h1 className="hero-title-main">Publique <span className="text-gradient">vagas de alta</span> performance.</h1>
-               <p className="hero-subtitle">Use o poder da IA para otimizar sua busca pelos melhores talentos do mercado.</p>
-            </div>
-         </div>
-      </section>
+      {!hideHero && (
+        <section className="jd-recruiter-hero-premium">
+           <div className="tech-glow-orb"></div>
+           <div className="container hero-content-top">
+              <div className="jd-social-greeting-v2">
+                 <h1 className="hero-title-main">
+                   {title || (isEdit ? 
+                     <><span className="text-gradient">Refine sua vaga</span> para máxima performance.</> : 
+                     <>Publique <span className="text-gradient">vagas de alta</span> performance.</>
+                   )}
+                 </h1>
+                 <p className="hero-subtitle">
+                   {subtitle || (isEdit ? 
+                     "Edite os detalhes, melhore os requisitos e atraia os talentos certos para o seu time." : 
+                     "Use o poder da IA para otimizar sua busca pelos melhores talentos do mercado."
+                   )}
+                 </p>
+              </div>
+           </div>
+        </section>
+      )}
 
       <div className="job-form-premium-container">
         {/* FORMULÁRIO PRINCIPAL */}
         <form id="main-job-form" className="job-form-modern" onSubmit={handleSubmit} onBlur={handleBlur}>
-        {error && <div className="alert alert-danger-premium">{error}</div>}
+        {/* Toasts globais substituem o alerta inline */}
+        {/* {error && <div className="alert alert-danger-premium">{error}</div>} */}
 
         <div className="form-section">
           <div className="section-header-rich">
@@ -825,6 +853,27 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
                  placeholder="Ex: Rua das Flores, 123 - Centro" 
                />
             </div>
+          </div>
+        </div>
+
+        {/* SEÇÃO 7: SEGURANÇA E GESTÃO (PRIVADO) */}
+        <div className="form-section section-management-premium">
+          <div className="section-header-rich">
+            <h3><ShieldCheck size={24} /> Segurança e Gestão</h3>
+            <p>Este e-mail é <strong>privado</strong>. Ele será usado apenas para você recuperar o acesso à edição ou exclusão desta vaga no futuro.</p>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label"><Mail size={14} /> Seu E-mail de Gestão <span>*</span></label>
+            <input 
+              required 
+              type="email" 
+              name="recruiter_email" 
+              className="form-control" 
+              value={formData.recruiter_email} 
+              onChange={handleChange} 
+              placeholder="Ex: seuemail@empresa.com" 
+            />
           </div>
         </div>
       </form>

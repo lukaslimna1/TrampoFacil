@@ -8,13 +8,14 @@
 }
 
 .tech-grid-overlay {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image: 
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
   mask-image: radial-gradient(circle at center, black, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
   pointer-events: none;
   z-index: 1;
 }
@@ -32,6 +33,7 @@
   opacity: 1;
   transform: translateY(0);
   transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.reveal-init {
@@ -98,6 +100,7 @@
 .text-gradient-v4 {
   background: linear-gradient(135deg, #2EB9B9 0%, #3b82f6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 10px 20px rgba(46, 185, 185, 0.2));
 }
@@ -171,12 +174,15 @@
 .floating-ui-card {
   position: absolute;
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   padding: 1.5rem;
   animation: float-ui 6s infinite ease-in-out;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 @keyframes float-ui {

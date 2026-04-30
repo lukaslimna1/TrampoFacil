@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useJobs } from '../context/JobContext';
 import { JobCard } from '../components/JobCard';
 import { JobCardSkeleton } from '../components/JobCardSkeleton';
 import { JobDetail } from './JobDetail';
 import { StoriesFilter } from '../components/StoriesFilter';
-import { Search, MapPin, Briefcase, Flame, Accessibility, Home as HomeIcon, Zap, Loader2 } from 'lucide-react';
+import { Search, MapPin, Briefcase, Flame, Accessibility, Home as HomeIcon, Zap } from 'lucide-react';
 import './Home.css';
 
 export function Home() {
   const { jobs, isLoading, isJobHot } = useJobs();
   const [searchTerm, setSearchTerm] = useState('');
   const [locationTerm, setLocationTerm] = useState('');
-  const [filteredJobs, setFilteredJobs] = useState([]);
   const [activeStory, setActiveStory] = useState('todos');
   const [isFiltering, setIsFiltering] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,34 +31,28 @@ export function Home() {
     { id: 'remoto', label: 'Remoto', icon: <HomeIcon size={20} /> }
   ], []);
 
-  useEffect(() => {
-    if (jobs) {
-      const filtered = jobs.filter(job => {
-        const matchSearch = (job.titulo + job.empresa).toLowerCase().includes(searchTerm.toLowerCase());
-        const matchLocation = job.cidade.toLowerCase().includes(locationTerm.toLowerCase());
-        
-        let matchStory = true;
-        if (activeStory === 'remoto') matchStory = job.modalidade_trabalho === 'Remoto';
-        else if (activeStory === 'inclusao') matchStory = Boolean(job.pcd || job.exclusiva_pcd || Object.values(job.afirmativa || {}).some(Boolean));
-        else if (activeStory === 'hot') matchStory = isJobHot(job);
-
-        return matchSearch && matchLocation && matchStory;
-      });
-      const sorted = [...filtered].sort((a, b) => {
-        // 1. VIP (Destaque) primeiro
-        if (a.is_featured && !b.is_featured) return -1;
-        if (!a.is_featured && b.is_featured) return 1;
-        
-        // 2. Urgentes em segundo
-        if (a.is_urgent && !b.is_urgent) return -1;
-        if (!a.is_urgent && b.is_urgent) return 1;
-        
-        // 3. Mais recentes por último
-        return new Date(b.criado_em) - new Date(a.criado_em);
-      });
+  const filteredJobs = useMemo(() => {
+    if (!jobs) return [];
+    
+    const filtered = jobs.filter(job => {
+      const matchSearch = (job.titulo + job.empresa).toLowerCase().includes(searchTerm.toLowerCase());
+      const matchLocation = job.cidade.toLowerCase().includes(locationTerm.toLowerCase());
       
-      setFilteredJobs(sorted);
-    }
+      let matchStory = true;
+      if (activeStory === 'remoto') matchStory = job.modalidade_trabalho === 'Remoto';
+      else if (activeStory === 'inclusao') matchStory = Boolean(job.pcd || job.exclusiva_pcd || Object.values(job.afirmativa || {}).some(Boolean));
+      else if (activeStory === 'hot') matchStory = isJobHot(job);
+
+      return matchSearch && matchLocation && matchStory;
+    });
+
+    return [...filtered].sort((a, b) => {
+      if (a.is_featured && !b.is_featured) return -1;
+      if (!a.is_featured && b.is_featured) return 1;
+      if (a.is_urgent && !b.is_urgent) return -1;
+      if (!a.is_urgent && b.is_urgent) return 1;
+      return new Date(b.criado_em) - new Date(a.criado_em);
+    });
   }, [jobs, searchTerm, locationTerm, activeStory, isJobHot]);
 
   const handleJobClick = (jobId) => {

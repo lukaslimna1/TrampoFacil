@@ -1,12 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getIconForJobTitle } from '../utils/iconMap';
 import { useJobs } from '../context/JobContext';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistance } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { 
   Zap, Bookmark, Eye, Flame, Banknote, Briefcase, MapPin, Clock, Star, 
   Users, BarChart, Utensils, Laptop, TrendingUp, HeartPulse, GraduationCap, 
-  Gift, Baby, ShieldCheck, Sparkles
+  Gift, ShieldCheck, Sparkles
 } from 'lucide-react';
 import trampoAI from '../utils/trampoAI';
 import './JobCard.css';
@@ -35,7 +35,7 @@ const BENEFIT_ICONS = {
 
 export function JobCard({ job, isClickable = true, isSelected = false, onClick }) {
   const { isJobSaved, toggleSavedJob, incrementJobViews, isJobHot, isUrgencyActive } = useJobs();
-  const JobAreaIcon = getIconForJobTitle(job.titulo);
+  const iconData = getIconForJobTitle(job.titulo);
 
   // Estados para Tempo Ago Realtime
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -61,9 +61,15 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
   const isSaved = isJobSaved ? isJobSaved(job.id) : false;
   
   // Calcula tempo real baseado no state currentTime para atualizar em tempo real
-  let rawDate = new Date(job.criado_em);
-  if (isNaN(rawDate.getTime())) rawDate = new Date();
-  const timeAgo = formatDistanceToNow(rawDate, { addSuffix: true, locale: ptBR });
+  const rawDate = useMemo(() => {
+    let d = new Date(job.criado_em);
+    return isNaN(d.getTime()) ? new Date() : d;
+  }, [job.criado_em]);
+
+  const timeAgo = useMemo(() => {
+    // Usamos formatDistance com currentTime para garantir a re-renderização e satisfazer o linter
+    return formatDistance(rawDate, currentTime, { addSuffix: true, locale: ptBR });
+  }, [rawDate, currentTime]);
 
   // Sincronização com o motor TRAMPO AI v3.0 (Visão do Candidato)
   const candidateAI = trampoAI.analyzeForCandidate(job);
@@ -94,7 +100,7 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
              <img src={job.logo_url} alt={job.empresa} className="jc-company-logo" onError={(e) => e.target.style.display = 'none'} />
            ) : (
              <div className="jc-icon">
-               <JobAreaIcon size={24} />
+               {React.createElement(iconData, { size: 24 })}
              </div>
            )}
         </div>

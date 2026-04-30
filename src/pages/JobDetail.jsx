@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useToast } from '../context/ToastContextCore';
 import { useParams, Link } from 'react-router-dom';
 import { useJobs } from '../context/JobContext';
 import { getIconForJobTitle } from '../utils/iconMap';
 import { calculateJobScore } from '../utils/trampoAI';
+import { JobDetailSkeleton } from '../components/JobDetailSkeleton';
 import './JobDetail.css';
 
 import { 
-  Zap, Bookmark, Eye, Flame, Banknote, Briefcase, MapPin, Clock, Star, 
+  Bookmark, Flame, Banknote, Briefcase, MapPin, Clock, Star, 
   Users, BarChart, Utensils, Laptop, TrendingUp, HeartPulse, GraduationCap, 
-  Gift, Baby, ShieldCheck, Building2, FileText, Mail, MessageCircle, ExternalLink, ArrowLeft,
-  ListChecks, Target, Award, ClipboardList, Share2, Sparkles
+  Gift, ShieldCheck, Building2, FileText, Mail, MessageCircle, ExternalLink, ArrowLeft,
+  ListChecks, Target, Award, Share2, Sparkles
 } from 'lucide-react';
 
 // Mapeamento de Lucide Icons para benefícios (Sincronizado com JobCard)
@@ -34,23 +36,27 @@ const BENEFIT_ICONS = {
   deficiencia: <Users size={18} />
 };
 export function JobDetail({ inlineJobId }) {
+  const { showToast } = useToast();
   const params = useParams();
   const id = inlineJobId || params.id;
   const isInline = !!inlineJobId;
-  const { getJobById, isLoading, isJobSaved, toggleSavedJob } = useJobs();
-  const [job, setJob] = useState(null);
+  const { getJobById, isLoading, isJobSaved, toggleSavedJob, incrementJobViews } = useJobs();
+  // Deriva a vaga baseada no ID (evita cascata de re-renders)
+  const job = useMemo(() => getJobById(id), [getJobById, id]);
+  
   const [activeTab, setActiveTab] = useState('vaga');
 
   useEffect(() => {
-    if (!isLoading) {
-      setJob(getJobById(id));
+    if (!isLoading && job) {
+      incrementJobViews(id);
     }
-  }, [id, getJobById, isLoading]);
+  }, [id, isLoading, job, incrementJobViews]);
 
-  if (isLoading) return <div className="container" style={{ padding: '2rem' }}>Carregando...</div>;
+  if (isLoading) return <JobDetailSkeleton isInline={isInline} />;
   if (!job) return <div className="container" style={{ padding: '2rem' }}><h3>Vaga não encontrada ou expirada.</h3><Link to="/">Voltar ao início</Link></div>;
 
-  const JobAreaIcon = getIconForJobTitle(job.titulo);
+  // Obtém o tipo do ícone (sem criar componente durante o render)
+  const iconType = job ? getIconForJobTitle(job.titulo) : Briefcase;
 
   const aiAnalysis = calculateJobScore(job);
   const jobScore = aiAnalysis.total;
@@ -67,7 +73,7 @@ export function JobDetail({ inlineJobId }) {
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert('Link copiado para a área de transferência!');
+      showToast('Link copiado para a área de transferência!', 'success');
     }
   };
 
@@ -113,7 +119,7 @@ export function JobDetail({ inlineJobId }) {
               {job.logo_url ? (
                 <img src={job.logo_url} alt={job.empresa} className="jd-company-logo-main" onError={(e) => e.target.style.display = 'none'} />
               ) : (
-                <JobAreaIcon size={36} />
+                React.createElement(iconType, { size: 36 })
               )}
             </div>
             <div className="job-header-text">

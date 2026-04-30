@@ -1,7 +1,8 @@
 /**
  * TRAMPO AI - Sistema de Inteligência de Mercado & Otimização de Vagas
- * v3.0 - Arquitetura Modular
+ * v4.1 - Motor de Greetings Híbrido (Gemini) + Scores Locais
  */
+import { aiService } from '../services/aiService';
 
 const MARKET_BENCHMARKS = {
   TECH: { base: 5000, keywords: ['desenvolvedor', 'engenheiro', 'analista', 'tech', 'programador', 'ti', 'software', 'dados'] },
@@ -18,34 +19,28 @@ const evaluateMarketSalary = (titulo, nivel, salarioStr) => {
   if (!salarioStr || String(salarioStr).toLowerCase().includes('combinar')) {
     return { 
       score: 10, 
-      label: 'Salário a Combinar', 
+      label: 'A Combinar', 
       color: '#94A3B8', 
-      insight: '💡 Definir um salário pode atrair 40% mais candidatos de qualidade.',
+      insight: '💡 Dica: Vagas com salário visível atraem 40% mais candidatos qualificados.',
       status: 'NEUTRAL'
     };
   }
+
+  const cleanSalary = String(salarioStr).replace(/[^\d]/g, '');
+  const value = parseInt(cleanSalary);
   
-  const matches = String(salarioStr).match(/[\d.,]+/);
-  if (!matches) return { score: 15, label: 'Salário Informado', color: '#64748B', status: 'INFO' };
-  
-  let valueStr = matches[0].replace(/\./g, '').replace(',', '.');
-  const value = parseFloat(valueStr);
-  if (isNaN(value) || value < 500) return { score: 15, label: 'Informado', color: '#64748B', status: 'INFO' };
+  if (isNaN(value)) return { score: 0, label: 'Valor Inválido', color: '#EF4444', status: 'ERROR' };
 
   let marketBase = MARKET_BENCHMARKS.DEFAULT.base;
-  const t = (titulo || '').toLowerCase();
-  const n = (nivel || '').toLowerCase();
+  const titleLower = titulo?.toLowerCase() || '';
 
-  // Detecção de categoria por palavra-chave
-  if (MARKET_BENCHMARKS.TECH.keywords.some(k => t.includes(k))) marketBase = MARKET_BENCHMARKS.TECH.base;
-  else if (MARKET_BENCHMARKS.MANAGEMENT.keywords.some(k => t.includes(k))) marketBase = MARKET_BENCHMARKS.MANAGEMENT.base;
-  else if (MARKET_BENCHMARKS.DESIGN.keywords.some(k => t.includes(k))) marketBase = MARKET_BENCHMARKS.DESIGN.base;
-  else if (MARKET_BENCHMARKS.OPERATIONAL.keywords.some(k => t.includes(k))) marketBase = MARKET_BENCHMARKS.OPERATIONAL.base;
+  if (MARKET_BENCHMARKS.TECH.keywords.some(k => titleLower.includes(k))) marketBase = MARKET_BENCHMARKS.TECH.base;
+  else if (MARKET_BENCHMARKS.MANAGEMENT.keywords.some(k => titleLower.includes(k))) marketBase = MARKET_BENCHMARKS.MANAGEMENT.base;
+  else if (MARKET_BENCHMARKS.DESIGN.keywords.some(k => titleLower.includes(k))) marketBase = MARKET_BENCHMARKS.DESIGN.base;
+  else if (MARKET_BENCHMARKS.OPERATIONAL.keywords.some(k => titleLower.includes(k))) marketBase = MARKET_BENCHMARKS.OPERATIONAL.base;
 
-  // Ajuste por nível
-  if (n.includes('sênior') || n.includes('senior')) marketBase *= 1.9;
-  else if (n.includes('pleno')) marketBase *= 1.35;
-  else if (n.includes('júnior') || n.includes('junior') || n.includes('estágio')) marketBase *= 0.75;
+  if (nivel?.includes('Sênior') || nivel?.includes('Sr')) marketBase *= 1.6;
+  else if (nivel?.includes('Pleno') || nivel?.includes('Pl')) marketBase *= 1.3;
 
   const ratio = value / marketBase;
   
@@ -54,32 +49,25 @@ const evaluateMarketSalary = (titulo, nivel, salarioStr) => {
   return { score: 5, label: 'Abaixo da Média', color: '#F59E0B', insight: '⚠️ Alerta: Salário abaixo da média de mercado. Aumente os benefícios para compensar.', status: 'WARNING' };
 };
 
-/**
- * Módulo Principal Trampo AI
- */
 const trampoAI = {
   /**
-   * Visão do Recrutador: Foco em Otimização e Performance da Vaga
+   * Visão do Recrutador: Foco em Otimização e Performance da Vaga (100% LOCAL)
    */
   analyzeForRecruiter: (job) => {
     let score = 20;
     const insights = [];
     const checklist = [];
 
-    // 1. Título e Estrutura
     if (job.titulo?.length > 8) score += 10; else checklist.push('Definir um título mais descritivo (+8 caracteres)');
     if (job.nivel && job.nivel !== 'Não informado') score += 10; else checklist.push('Informar o nível da vaga (Jr, Pl, Sr)');
 
-    // 2. Análise de Mercado
     const market = evaluateMarketSalary(job.titulo, job.nivel, job.salario);
     score += market.score;
     if (market.status === 'WARNING') checklist.push('Revisar proposta salarial ou compensar com benefícios');
 
-    // 3. Densidade de Informação
     if (job.descricao?.length > 200) score += 15; else checklist.push('Expandir a descrição da vaga (mínimo 200 caracteres)');
     if (job.beneficios_lista?.length >= 4) score += 15; else checklist.push('Adicionar pelo menos 4 benefícios atrativos');
     
-    // 4. Diversidade e Inclusão (Recurso Novo)
     const hasDiversity = job.pcd || Object.values(job.afirmativa || {}).some(v => v === true);
     if (hasDiversity) {
       score += 10;
@@ -88,7 +76,6 @@ const trampoAI = {
       checklist.push('Considerar tags de ações afirmativas para maior alcance');
     }
 
-    // 5. Visibilidade
     if (job.is_featured) score += 10;
     if (job.is_urgent) score += 10;
 
@@ -123,67 +110,40 @@ const trampoAI = {
   },
 
   /**
-   * Sistema de Saudações Dinâmicas e Humanizadas
+   * Sistema de Saudações Dinâmicas e Humanizadas (Centralizado com Gemini)
    */
-  getGreeting: (context = {}) => {
-    const hour = new Date().getHours();
-    const { pathname = '/', isFirstVisitToday = false } = context;
-
-    const morning = hour >= 5 && hour < 12;
-    const afternoon = hour >= 12 && hour < 18;
-    const night = hour >= 18 || hour < 5;
-
-    // 1. Specific Page Contexts (High Priority)
-    if (pathname === '/publicar') {
-      return "Olá, recrutador! Pronto para encontrar o talento ideal hoje? 🚀";
+  getGreeting: async (context = {}) => {
+    const { pathname = '/' } = context;
+    try {
+      const aiGreeting = await aiService.generateGreeting(pathname);
+      if (aiGreeting) return aiGreeting;
+    } catch {
+      console.warn("Trampo AI: Gemini falhou, usando fallback. Verifique sua API Key.");
     }
+
+    // --- FALLBACK INTELIGENTE (Se a IA falhar) ---
+    const isRecruiter = pathname.includes('editar') || pathname.includes('publicar');
     
-    if (pathname === '/sobre') {
-      return "Descubra como estamos revolucionando o recrutamento com tecnologia e humanidade. 💡";
+    if (isRecruiter) {
+      if (pathname.includes('editar')) return "Hora de lapidar essa vaga e atrair os melhores. 💎";
+      return "Foco na gestão: os melhores times se constroem agora. 🚀";
     }
+
+    // Fallbacks específicos para evitar repetição
+    if (pathname === '/sobre') return "Conheça nossa visão: estamos reinventando o trampo. 🚀";
+    if (pathname === '/vagas') return "Explore as melhores oportunidades tech do mercado. ⚡";
+    if (pathname.startsWith('/vaga/')) return "Analisando esse job... Parece um ótimo match! 🔍";
     
-    if (pathname === '/sucesso') {
-      return "Parabéns! Sua vaga foi publicada. Que tal aproveitar para revisar suas outras oportunidades? 🎉";
-    }
-
-    // 2. Returning User Experience
-    if (!isFirstVisitToday && Math.random() > 0.4) {
-      const returns = [
-        'Que bom te ver de novo por aqui! 🎉',
-        'De volta à busca? Vamos encontrar algo incrível! 💪',
-        'Foco total! Novas vagas acabaram de chegar. 🔥',
-        'Sentimos sua falta! Próximo passo na carreira? 🚀'
-      ];
-      return returns[Math.floor(Math.random() * returns.length)];
-    }
-
-    // 3. Random Career/Market Tips (30% chance)
-    if (Math.random() > 0.7) {
-      const tips = [
-        '💡 Dica: Vagas com salário visível recebem 40% mais cliques.',
-        '💡 Dica: Manter seu LinkedIn atualizado ajuda no match da IA.',
-        '💡 Dica: Ter um portfólio no GitHub é essencial para vagas Tech.',
-        '💡 Dica: O mercado de Trabalho Remoto cresceu 20% este mês.',
-        '💡 Dica: Personalize sua mensagem ao falar com recrutadores.'
-      ];
-      return tips[Math.floor(Math.random() * tips.length)];
-    }
-
-    // 4. Default Time-Based Greetings
-    if (morning) return 'Bom dia! Café na mão e foco na vaga? ☕';
-    if (afternoon) return 'Boa tarde! Que tal um "up" na carreira hoje? ⚡';
-    if (hour < 5) return 'Madrugando na busca? A vaga dos sonhos não espera! 🦉';
-    return 'Boa noite! Já deu uma olhada nas novidades de hoje? 🌙';
+    return "Bora encontrar o match perfeito para sua carreira? ✨";
   }
 };
 
-// Exportando como módulo unificado e também as funções individuais para retrocompatibilidade
 export const calculateJobScore = (job) => {
   const result = trampoAI.analyzeForRecruiter(job);
   return {
     total: result.total,
     salaryEval: result.market,
-    insights: result.checklist // Usamos o checklist como insights no Form
+    insights: result.checklist
   };
 };
 

@@ -26,6 +26,7 @@ export function Header() {
         
         <nav className="nav-links">
           <Link to="/sobre" className="nav-link hidden-mobile">Sobre</Link>
+          <Link to="/contato" className="nav-link hidden-mobile">Contato</Link>
           <Link to="/" className="nav-link hidden-mobile">Explorar Vagas</Link>
           <Link to="/publicar" className="btn-header-publish">
             Anunciar Vaga

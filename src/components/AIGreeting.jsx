@@ -1,34 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import trampoAI from '../utils/trampoAI';
 import './AIGreeting.css';
 
+/**
+ * AIGreeting v4.0 - Sincronizado com Motor Gemini 2024-2027
+ */
 export function AIGreeting({ variant = 'global' }) {
   const location = useLocation();
   const [greeting, setGreeting] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    const todayStr = new Date().toDateString();
-    const lastVisit = localStorage.getItem('trampo_last_visit');
-    const isFirstVisitToday = lastVisit !== todayStr;
-    
-    if (isFirstVisitToday) {
-      localStorage.setItem('trampo_last_visit', todayStr);
+    async function fetchGreeting() {
+      setIsTyping(true);
+      
+      const context = {
+        pathname: location.pathname
+      };
+
+      try {
+        // Agora o getGreeting do trampoAI já gerencia a chamada ao Gemini e o fallback
+        // E ele é assíncrono, então precisamos do await
+        const message = await trampoAI.getGreeting(context);
+        setGreeting(message);
+      } catch (err) {
+        console.error("Erro ao carregar saudação da IA:", err);
+        setGreeting("Conectando ao motor de inteligência... 🚀");
+      } finally {
+        // Pequeno delay para o efeito de "IA pensando" ser visível e premium
+        setTimeout(() => setIsTyping(false), 800);
+      }
     }
 
-    const message = trampoAI.getGreeting({
-      pathname: location.pathname,
-      isFirstVisitToday
-    });
-
-    setGreeting(message);
-    setIsTyping(true);
-    
-    // Simulate typewriter effect
-    const timer = setTimeout(() => setIsTyping(false), 2000);
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
+    fetchGreeting();
+  }, [location.pathname]); // Dispara toda vez que a URL mudar
 
   return (
     <div className={`ai-greeting-v3 ${variant}`}>
