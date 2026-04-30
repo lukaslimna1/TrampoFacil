@@ -103,16 +103,21 @@
   gap: 2rem;
   align-items: flex-start;
   padding: 2rem 1.5rem;
-  max-width: 1400px;
+  max-width: 1500px;
   margin: -60px auto 0 auto;
   position: relative;
   z-index: 10;
 }
 
+.job-form-page-wrapper.no-hero .job-form-premium-container {
+  margin-top: 0;
+  padding: 4rem 2rem;
+}
+
 @media (min-width: 1200px) {
   .job-form-premium-container {
-    grid-template-columns: minmax(0, 1fr) 400px;
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 4rem;
   }
 }
 
@@ -258,11 +263,11 @@
 
 .form-section {
   background: white;
-  padding: 3rem;
-  border-radius: 32px;
+  padding: 4rem;
+  border-radius: 40px;
   border: 1px solid #f1f5f9;
-  margin-bottom: 2.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  margin-bottom: 3.5rem;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.02);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }

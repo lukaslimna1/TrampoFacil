@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: SearchHub
+ * OBJETIVO: Central de busca e filtros avançados.
+ * POR QUE: Consolida a busca por texto, localização e filtros técnicos 
+ * (modalidade, nível, salário) em um único módulo de alta performance.
+ */
 import React, { useState, useCallback } from 'react';
 import { 
   Search, MapPin, Briefcase, Filter, Zap, Sparkles, X, Clock, ShieldCheck, TrendingUp, Home as HomeIcon

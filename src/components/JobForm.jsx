@@ -359,7 +359,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
   };
 
   return (
-    <div className="job-form-page-wrapper">
+    <div className={`job-form-page-wrapper ${hideHero ? 'no-hero' : ''}`}>
       {/* HERO RECRUITER PREMIUM (Style from Home) */}
       {!hideHero && (
         <section className="jd-recruiter-hero-premium">

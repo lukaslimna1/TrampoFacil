@@ -63,7 +63,7 @@ export function Home() {
 
   const dynamicStories = useMemo(() => [
     { id: 'todos', label: 'Tudo', icon: <Briefcase size={20} /> },
-    { id: 'hot', label: 'Vagas Urgentes', icon: <Flame size={20} />, isHot: true },
+    { id: 'hot', label: 'Em Alta', icon: <Flame size={20} />, isHot: true },
     { id: 'inclusao', label: 'Inclusão', icon: <Accessibility size={20} /> },
     { id: 'remoto', label: 'Remoto', icon: <HomeIcon size={20} /> }
   ], []);
@@ -183,7 +183,11 @@ export function Home() {
           <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 40%' : '1 1 100%' }}>
             <h2 className="results-count">
               {isLoading ? 'Buscando vagas...' : `${filteredJobs.length} vagas encontradas`}
-              {activeStory !== 'todos' && <span className="active-filter-badge">Filtrado por: {activeStory}</span>}
+              {activeStory !== 'todos' && (
+                <span className="active-filter-badge">
+                  Filtrado por: {dynamicStories.find(s => s.id === activeStory)?.label || activeStory}
+                </span>
+              )}
             </h2>
             
             {isLoading ? (

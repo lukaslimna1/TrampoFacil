@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: JobCardSkeleton
+ * OBJETIVO: Exibir um estado de carregamento visual para os cards de vaga.
+ * POR QUE: Melhora a percepção de performance (Lighthouse/UX) ao mostrar 
+ * a estrutura dos dados antes que eles sejam carregados do Supabase.
+ */
 import './JobCardSkeleton.css';
 
 export function JobCardSkeleton() {

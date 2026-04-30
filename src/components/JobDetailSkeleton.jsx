@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: JobDetailSkeleton
+ * OBJETIVO: Exibir um estado de carregamento visual para o detalhamento da vaga.
+ * POR QUE: Garante uma transição suave entre a seleção de uma vaga e o 
+ * carregamento completo dos seus metadados no painel lateral ou página.
+ */
 import './JobDetailSkeleton.css';
 import './JobCardSkeleton.css'; // Reusing some base lines like .skeleton-line
 

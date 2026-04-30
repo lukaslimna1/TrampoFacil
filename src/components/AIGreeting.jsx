@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: AIGreeting
+ * OBJETIVO: Exibir saudações contextuais geradas por IA.
+ * POR QUE: Humaniza a interface ao fornecer mensagens dinâmicas baseadas na 
+ * página onde o usuário está, utilizando o motor de contexto 'trampoAI'.
+ */
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import trampoAI from '../utils/trampoAI';

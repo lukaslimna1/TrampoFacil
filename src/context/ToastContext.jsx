@@ -1,3 +1,9 @@
+/**
+ * PROVIDER: ToastContext
+ * OBJETIVO: Implementação do sistema de notificações (Toasts).
+ * POR QUE: Gerencia a pilha de notificações, animações de entrada/saída 
+ * e o portal para renderização no topo da interface.
+ */
 import { useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';

@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: Tag
+ * OBJETIVO: Badge visual para exibir metadados de vagas (ex: Modalidade, Nível).
+ * POR QUE: Padroniza a exibição de tags em toda a plataforma, suportando 
+ * diferentes variantes de estilo, ícones e emojis.
+ */
 import './Tag.css';
 
 export function Tag({ label, variant = 'default', icon: Icon, emoji }) {

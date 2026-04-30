@@ -1,3 +1,9 @@
+/**
+ * PÁGINA: JobDetail
+ * OBJETIVO: Exibição detalhada de uma vaga específica.
+ * POR QUE: Apresenta todas as informações da vaga, incluindo Score de Qualidade IA, 
+ * benefícios, requisitos e canais diretos de candidatura (WhatsApp/E-mail).
+ */
 import React, { useEffect, useState, useMemo } from 'react';
 import { useToast } from '../context/ToastContextCore';
 import { useParams, Link } from 'react-router-dom';

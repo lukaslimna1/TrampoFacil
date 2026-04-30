@@ -1,3 +1,9 @@
+/**
+ * PÁGINA: EditJob
+ * OBJETIVO: Gerenciamento e edição de uma vaga existente.
+ * POR QUE: Permite que o recrutador altere dados da vaga ou a exclua 
+ * utilizando o Token de Edição enviado por e-mail, mantendo o fluxo Accountless.
+ */
 import { useState, useEffect, useMemo } from 'react';
 import { useToast } from '../context/ToastContextCore';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -256,14 +262,14 @@ export function EditJob() {
         </div>
       </header>
 
-      <div className="container edit-form-content">
+      <div className="edit-form-content">
         <JobForm 
           initialData={job} 
           onSubmit={handleUpdate} 
           isSubmitting={isSubmitting}
-          submitText="Aplicar Alterações"
+          buttonText="Salvar Alterações"
           hideHero={true}
-          title="" // Título já está no header customizado
+          title="" 
           subtitle=""
         />
       </div>

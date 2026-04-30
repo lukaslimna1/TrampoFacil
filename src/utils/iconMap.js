@@ -1,3 +1,9 @@
+/**
+ * UTIL: iconMap
+ * OBJETIVO: Mapeamento inteligente de ícones baseado em palavras-chave.
+ * POR QUE: Automatiza a escolha visual de ícones para vagas, garantindo que o card 
+ * tenha uma representação gráfica condizente com o cargo sem esforço do recrutador.
+ */
 import { Code, Megaphone, DollarSign, PenTool, Users, LineChart, Truck, Phone, Briefcase } from 'lucide-react';
 
 export function getIconForJobTitle(title) {

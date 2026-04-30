@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: StoriesFilter
+ * OBJETIVO: Navegação rápida por categorias de vagas inspirada em Stories.
+ * POR QUE: Oferece uma interface visual e tátil para filtrar vagas 'Em Alta', 
+ * 'Remotas' ou de 'Inclusão' de forma intuitiva no topo do feed.
+ */
 import './StoriesFilter.css';
 
 export function StoriesFilter({ stories = [], activeFilter, onFilterSelect }) {

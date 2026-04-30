@@ -196,7 +196,10 @@ export function JobProvider({ children }) {
   };
 
   const isJobHot = (job) => {
-    if (isUrgencyActive(job)) return true;
+    // Vagas Premium e Urgentes são sempre "Hot"
+    if (job.is_featured || isUrgencyActive(job)) return true;
+    
+    // Lógica de velocidade de visualizações para vagas orgânicas
     const views = job.views || 0;
     const createdDate = new Date(job.criado_em);
     if (isNaN(createdDate.getTime())) return views > 50;
