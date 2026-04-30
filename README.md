@@ -4,7 +4,7 @@
 
 O **Trampo Fácil** não é apenas uma plataforma de vagas. É um ecossistema inteligente desenhado para eliminar o "buraco negro" dos currículos, conectando talentos e empresas de forma direta, gratuita e humana, potencializado pelo motor proprietário **Trampo IA**.
 
-![Trampo Fácil Banner](https://raw.githubusercontent.com/lucas/trampo-facil/main/src/assets/hero.png)
+![Trampo Fácil Banner](src/assets/hero.png)
 
 ---
 
