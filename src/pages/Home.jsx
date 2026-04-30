@@ -180,7 +180,7 @@ export function Home() {
 
       <div className="container">
         <div className={`home-feed-layout ${selectedJobId && isDesktop ? 'split-active' : ''}`}>
-          <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 500px' : '1 1 100%' }}>
+          <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 40%' : '1 1 100%' }}>
             <h2 className="results-count">
               {isLoading ? 'Buscando vagas...' : `${filteredJobs.length} vagas encontradas`}
               {activeStory !== 'todos' && <span className="active-filter-badge">Filtrado por: {activeStory}</span>}

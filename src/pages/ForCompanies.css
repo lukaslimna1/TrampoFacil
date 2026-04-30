@@ -1,0 +1,725 @@
+/* 
+  ESTILO: ForCompanies.css
+  SISTEMA: Tech-Premium Conversion Flow
+  OBJETIVO: Estilizar a landing page para empresas com foco em autoridade e clareza.
+*/
+
+.for-companies-premium {
+  background-color: #020617;
+  color: #f8fafc;
+  overflow-x: hidden;
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #2eb9b9 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-primary { color: #2eb9b9; }
+
+/* 1. HERO */
+.fc-hero {
+  padding: 8rem 0 6rem 0;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(46, 185, 185, 0.15) 0%, transparent 70%);
+  text-align: center;
+}
+
+.tech-glow-orb-fc {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(46, 185, 185, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fc-hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.fc-badge-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(46, 185, 185, 0.1);
+  border: 1px solid rgba(46, 185, 185, 0.2);
+  color: #2eb9b9;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fc-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 950;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.04em;
+}
+
+.fc-subtitle {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+.fc-hero-points {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.fc-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fc-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-fc-primary {
+  background: linear-gradient(135deg, #2eb9b9 0%, #21A1A1 100%);
+  color: white;
+  padding: 18px 32px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 25px rgba(46, 185, 185, 0.3);
+}
+
+.btn-fc-primary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(46, 185, 185, 0.4);
+}
+
+.btn-fc-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  padding: 18px 32px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+.btn-fc-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #2eb9b9;
+}
+
+/* 2. HOW IT WORKS */
+.fc-how-it-works {
+  padding: 8rem 0;
+  background: #020617;
+}
+
+.fc-section-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.fc-section-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.fc-section-subtitle {
+  font-size: 1.1rem;
+  color: #94a3b8;
+}
+
+.fc-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.fc-step-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+  padding: 48px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.fc-step-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(46, 185, 185, 0.3);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.fc-step-number {
+  position: absolute;
+  top: 32px;
+  right: 48px;
+  font-size: 3rem;
+  font-weight: 900;
+  opacity: 0.05;
+  color: #2eb9b9;
+}
+
+.fc-step-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #2eb9b9 0%, #21A1A1 100%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 20px rgba(46, 185, 185, 0.2);
+}
+
+.fc-step-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.fc-step-card p {
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* 3. DIFFERENTIALS */
+.fc-differentials {
+  padding: 8rem 0;
+  background: radial-gradient(circle at 100% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+}
+
+.fc-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.fc-diff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.fc-diff-item {
+  display: flex;
+  gap: 16px;
+}
+
+.fc-diff-check {
+  color: #2eb9b9;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.fc-diff-item h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.fc-diff-item p {
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.fc-split-visual {
+  position: relative;
+}
+
+.fc-glass-mockup {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.mockup-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.mockup-header .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mockup-line-large {
+  height: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  width: 80%;
+}
+
+.mockup-line-medium {
+  height: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  margin-bottom: 32px;
+  width: 60%;
+}
+
+.mockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.mockup-item {
+  height: 100px;
+  background: rgba(46, 185, 185, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(46, 185, 185, 0.1);
+}
+
+/* 4. IA FEATURES */
+.fc-ia-features {
+  padding: 4rem 0;
+}
+
+.fc-ia-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 40px;
+  padding: 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fc-ia-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46, 185, 185, 0.3), transparent);
+}
+
+.fc-ia-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #8b5cf6;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.fc-ia-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 4rem;
+}
+
+.fc-ia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.fc-ia-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.fc-ia-item svg {
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+}
+
+.fc-ia-item h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.fc-ia-item p {
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* 5. PRICING */
+.fc-pricing {
+  padding: 8rem 0;
+  background: #020617;
+}
+
+.fc-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.fc-price-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: all 0.3s;
+}
+
+.fc-price-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-8px);
+}
+
+.fc-price-card.featured {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+  border-color: #2eb9b9;
+  box-shadow: 0 20px 50px rgba(46, 185, 185, 0.15);
+  position: relative;
+}
+
+.fc-price-badge-urgent {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+}
+
+.fc-price-badge-premium {
+  background: #fef9c3;
+  color: #854d0e;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+}
+
+.fc-price-card h3 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.fc-price-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.fc-price-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.fc-price-list li svg {
+  color: #2eb9b9;
+  flex-shrink: 0;
+}
+
+.fc-price-card.featured .fc-price-list li { color: rgba(255, 255, 255, 0.8); }
+
+.fc-price-footer {
+  margin-top: auto;
+}
+
+.btn-price-primary {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 800;
+  transition: all 0.3s;
+}
+
+.btn-price-primary:hover {
+  background: white;
+  color: #020617;
+}
+
+.btn-price-vip {
+  width: 100%;
+  background: #2eb9b9;
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 800;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(46, 185, 185, 0.2);
+}
+
+.btn-price-vip:hover {
+  background: #21A1A1;
+  transform: scale(1.02);
+}
+
+/* 6. PAYMENT */
+.fc-payment {
+  padding: 4rem 0;
+}
+
+.fc-payment-box {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 32px;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fc-payment-info h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 1rem 0 0.5rem;
+}
+
+.fc-payment-info p { color: #94a3b8; }
+
+.fc-payment-steps {
+  display: flex;
+  gap: 24px;
+}
+
+.ps-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.ps-item span {
+  width: 28px;
+  height: 28px;
+  background: rgba(46, 185, 185, 0.2);
+  border: 1px solid #2eb9b9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #2eb9b9;
+}
+
+/* 7. ROADMAP */
+.fc-roadmap {
+  padding: 8rem 0;
+}
+
+.fc-roadmap-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border-radius: 40px;
+  padding: 4rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.fc-roadmap-badge {
+  display: inline-block;
+  background: rgba(46, 185, 185, 0.1);
+  color: #2eb9b9;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.fc-roadmap-card h2 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  margin-bottom: 3rem;
+}
+
+.fc-roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 3rem;
+}
+
+.roadmap-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px 24px;
+  border-radius: 16px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.roadmap-item svg { color: #2eb9b9; }
+
+.fc-roadmap-footer {
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* 8. TRUST */
+.fc-trust {
+  padding: 4rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fc-trust-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.trust-item svg { color: #10b981; }
+
+/* 9. CTA FINAL */
+.fc-cta-final {
+  padding: 8rem 0 10rem 0;
+}
+
+.fc-cta-card {
+  background: linear-gradient(135deg, #2eb9b9 0%, #2563eb 100%);
+  padding: 6rem 4rem;
+  border-radius: 48px;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(37, 99, 235, 0.2);
+}
+
+.fc-cta-card h2 {
+  font-size: 3rem;
+  font-weight: 950;
+  color: white;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.fc-cta-card p {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  font-weight: 500;
+}
+
+.fc-cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-fc-outline-white {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 18px 32px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+.btn-fc-outline-white:hover {
+  background: white;
+  color: #2563eb;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 1024px) {
+  .fc-split-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .fc-split-info { text-align: center; }
+  .fc-diff-list { align-items: center; }
+  .fc-diff-item { text-align: left; }
+}
+
+@media (max-width: 768px) {
+  .fc-hero { padding-top: 6rem; }
+  .fc-title { font-size: 2.75rem; }
+  .fc-cta-card { padding: 4rem 2rem; }
+  .fc-cta-card h2 { font-size: 2rem; }
+  .fc-payment-box { flex-direction: column; text-align: center; }
+}

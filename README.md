@@ -1,7 +1,7 @@
 # 🚀 Trampo Fácil — Descoberta Inteligente de Oportunidades
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Versão-4.9%20Stable-gold?style=for-the-badge&logo=react" alt="Versão Stable" />
+  <img src="https://img.shields.io/badge/Versão-5.0%20Stable-gold?style=for-the-badge&logo=react" alt="Versão Stable" />
   <img src="https://img.shields.io/badge/Performance‑Snappy%20UX-brightgreen?style=for-the-badge&logo=fastapi" alt="Performance Snappy" />
   <img src="https://img.shields.io/badge/IA‑Gemini%201.5%20Flash-blue?style=for-the-badge&logo=google-gemini" alt="IA Gemini" />
   <img src="https://img.shields.io/badge/DB‑Supabase-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase DB" />
@@ -24,13 +24,23 @@ O maior diferencial do Trampo Fácil é eliminar a necessidade de contas e senha
 
 ---
 
+## 🚀 Landing Page "Para Empresas" (v5.0)
+
+A v5.0 foca na expansão B2B com uma nova experiência para recrutadores:
+
+*   **Página "Para Empresas"**: Nova landing page de conversão com seções de Hero, Roadmap, IA e Diferenciais.
+*   **Monetização & Destaques**: Integração dos planos **Vaga Urgente** (Hot status) e **Destaque Premium** (Borda dourada/VIP) para máxima visibilidade.
+*   **Fluxo de Pagamento**: Preparado para integração com **Stripe** para processamento automático de destaques.
+
+---
+
 ## 🛡️ Central de Transparência & Compliance
 
 A partir da v4.9, introduzimos uma arquitetura modular de conformidade e segurança:
 
 *   **Arquitetura Modular**: Documentação jurídica dividida em módulos (`Security`, `Privacy`, `Terms`, `FAQ`) para fácil manutenção.
-*   **FAQ Interativo**: Sistema de respostas expansíveis (Accordion) inspirado em plataformas premium (Dropbox/vagasbauru).
-*   **Contato Inteligente**: Página de suporte otimizada com novos perfis de atendimento (Denúncia de Vagas, LGPD, Parcerias) e layout focado em conversão.
+*   **FAQ Interativo**: Sistema de respostas expansíveis (Accordion) inspirado em plataformas premium.
+*   **Contato Inteligente**: Suporte otimizado com perfis de atendimento (Denúncia de Vagas, LGPD, Parcerias).
 
 ---
 
@@ -40,9 +50,9 @@ O motor `Trampo IA` (Gemini 1.5 Flash) foi sincronizado em toda a plataforma:
 
 | Feature | O que entrega ao usuário |
 |---|---|
-| **Saudações Contextuais** | Mensagens inteligentes que mudam conforme a página (Contato, Legal, Home) e detectam o contexto da navegação. |
+| **Saudações Contextuais** | Mensagens inteligentes que mudam conforme a página (Contato, Legal, Home, Empresas) e detectam o contexto da navegação. |
 | **Score de Performance** | Avaliação 0-100 baseada em clareza, benefícios e inclusão, impulsionando vagas de alta qualidade. |
-| **Fallback Robusto** | Garantia de frases inspiradoras mesmo em caso de indisponibilidade da API, mantendo a UX fluida. |
+| **Recruiter Insights** | Feedback em tempo real durante a criação da vaga para maximizar a atratividade. |
 
 ---
 
@@ -51,10 +61,10 @@ O motor `Trampo IA` (Gemini 1.5 Flash) foi sincronizado em toda a plataforma:
 | Característica | Detalhe | Impacto no Produto |
 |---|---|---|
 | **Arquitetura** | React 19 + Context API | Interface que nunca trava e estado sincronizado. |
-| **Layout Expansivo** | Grid Ultra-Wide (até 1850px) | Aproveitamento total de monitores grandes para análise de vagas. |
+| **Layout Expansivo** | Grid Ultra-Wide + Home 40/60 Split | Aproveitamento total de espaço para feed e preview simultâneos. |
 | **Persistência** | Supabase Real-time | Vagas e visualizações atualizadas instantaneamente. |
-| **Documentação** | JSDoc + Comentários de Objetivo | Código 100% autodocumentado para escala futura. |
-| **Job Cards v2** | Spacious Design (32px padding) | Maior legibilidade e destaque visual para informações críticas. |
+| **Documentação** | JSDoc + Comentários de Objetivo | Código 100% autodocumentado em todos os arquivos. |
+| **Job Cards v2** | Spacious Design (32px padding) | Maior legibilidade e suporte para **Destaque Premium**. |
 
 ---
 
@@ -63,12 +73,10 @@ O motor `Trampo IA` (Gemini 1.5 Flash) foi sincronizado em toda a plataforma:
 ```mermaid
 graph TD
     App[App.jsx] --> Context[JobContext.jsx]
+    App --> ForCompanies[ForCompanies.jsx]
     App --> Legal[Legal.jsx Orchestrator]
-    Legal --> Seg[Security.jsx]
-    Legal --> Priv[Privacy.jsx]
-    Legal --> FAQ[FAQ.jsx]
     Home[Home.jsx] --> Search[SearchHub.jsx]
-    Home --> Cards[JobCard v2 - Spacious]
+    Home --> Cards[JobCard v2 - Destaque Premium]
     Detail[JobDetail.jsx] --> Apply[WhatsApp/E-mail]
 ```
 
@@ -77,15 +85,13 @@ graph TD
 ## 📈 Roadmap de Evolução
 
 ### ✅ Concluído
-- **v4.5** – Busca Inteligente com **interpretação de linguagem natural**
-- **v4.8** – Snappy UX + Layout Ultra‑Wide
-- **v4.9** – **Central de Transparência Modular** + Design de Cards Otimizado
+- **v4.9** – Central de Transparência Modular + Design de Cards Otimizado
+- **v5.0** – **Landing Page para Empresas** + Sincronização de Destaques Premium
 
 ### 🚀 Próximas Evoluções
 - **Dashboard do Recrutador** – Centralização da gestão de vagas e métricas.
+- **Checkout Stripe** – Integração real para ativação de destaques pagos.
 - **Navegação Geográfica** – Filtros avançados por cidades/estados (SEO Local).
-- **Contas Opcionais** – Histórico persistente (opcional), mantendo o pilar Accountless.
-- **Notificações Inteligentes** – Alertas personalizados por e-mail/WhatsApp.
 
 ---
 

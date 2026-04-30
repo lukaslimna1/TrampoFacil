@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: Footer
+ * OBJETIVO: Rodapé institucional com links de navegação e redes sociais.
+ * POR QUE: Fornece acesso rápido a todas as áreas da plataforma, reforça o branding
+ * e centraliza links legais (privacidade, termos) e de suporte.
+ */
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
@@ -53,6 +59,7 @@ export function Footer() {
           <div className="footer-col">
             <h4 className="footer-heading">Empresas</h4>
             <div className="footer-links">
+              <Link to="/para-empresas" className="footer-link">Para Empresas</Link>
               <Link to="/publicar" className="footer-link">Publicar Vaga</Link>
               <Link to="/editar" className="footer-link">Gerenciar Vagas</Link>
               <Link to="/sobre" className="footer-link">Sobre nós</Link>

@@ -1,3 +1,10 @@
+/**
+ * COMPONENTE: JobCard
+ * OBJETIVO: Renderizar um card de vaga com design tech-premium (Glassmorphism).
+ * POR QUE: Este é o componente central do feed, projetado para transmitir as
+ * principais informações da vaga (salário, localização, benefícios) de forma 
+ * visualmente hierarquizada e atrativa, integrando o score do 'trampoAI'.
+ */
 import React, { useState, useEffect, useMemo } from 'react';
 import { getIconForJobTitle } from '../utils/iconMap';
 import { useJobs } from '../context/JobContext';
@@ -109,7 +116,7 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
               {job.empresa || 'Empresa Confidencial'}
               {isFeatured && (
                 <span className="jc-badge-vip-text">
-                  <Star size={12} fill="currentColor" /> Vaga VIP
+                  <Star size={12} fill="currentColor" /> Destaque Premium
                 </span>
               )}
            </div>
@@ -254,13 +261,13 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
     </div>
   );
   
-  // Como usamos links do router-dom mas tiramos importacao acima, vou garantir que ele nao quebre,
-  // mas o Home lida com o onClick para desktop ou mobile nativo via navigate() lá.
+  // O componente suporta interatividade opcional via props.
+  // No feed principal, ele incrementa visualizações ao ser clicado.
   if (isClickable && onClick) {
       return (
          <div onClick={(e) => { 
             e.preventDefault(); 
-            incrementJobViews(job.id); // Conta visualização ao clicar
+            incrementJobViews(job.id); // Conta visualização ao clicar no card
             onClick(); 
           }} style={{cursor: 'pointer'}}>
            {cardContent}

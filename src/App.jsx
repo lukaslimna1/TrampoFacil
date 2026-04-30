@@ -22,6 +22,7 @@ const SavedJobs = lazy(() => import('./pages/SavedJobs').then(module => ({ defau
 const About = lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const Contact = lazy(() => import('./pages/Contact'));
 const Legal = lazy(() => import('./pages/Legal').then(module => ({ default: module.Legal })));
+const ForCompanies = lazy(() => import('./pages/ForCompanies'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Global Loading Fallback
@@ -53,6 +54,7 @@ function App() {
                   <Route path="/contato" element={<Contact />} />
                   <Route path="/legal/:section" element={<Legal />} />
                   <Route path="/legal" element={<Legal />} />
+                  <Route path="/para-empresas" element={<ForCompanies />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>

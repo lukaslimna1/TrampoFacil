@@ -139,6 +139,7 @@ const trampoAI = {
     if (pathname.includes('/legal/termos')) return "Transparência total: entenda como nossa plataforma funciona. 📄";
     if (pathname.includes('/legal/privacidade')) return "Seus dados, suas regras. Em total conformidade com a LGPD. 🔐";
     if (pathname.includes('/legal/ajuda')) return "Dúvidas? Nosso guia rápido resolve seu problema em segundos. ❓";
+    if (pathname === '/para-empresas') return "Menos burocracia, mais talentos. Vamos escalar seu time? 🚀";
     if (pathname.startsWith('/vaga/')) return "Analisando esse job... Parece um ótimo match! 🔍";
     
     // Fallback genérico para páginas não mapeadas

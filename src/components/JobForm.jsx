@@ -1,3 +1,10 @@
+/**
+ * COMPONENTE: JobForm
+ * OBJETIVO: Formulário centralizado para criação e edição de vagas de emprego.
+ * POR QUE: Este componente é o motor de entrada de dados da plataforma, integrando
+ * validações, máscaras de UI (como salário), seleção de localização via API do IBGE,
+ * e o motor de análise em tempo real 'trampoAI' para feedback ao recrutador.
+ */
 import { useState, useEffect, useMemo } from 'react';
 import { useToast } from '../context/ToastContextCore';
 import './JobForm.css';
@@ -91,6 +98,10 @@ const BENEFIT_CATEGORIES = [
 // Flat list removida (não utilizada)
 
 
+/**
+ * Estado inicial padrão para novas vagas.
+ * Inclui flags de visibilidade (is_urgent, is_featured) e campos de diversidade.
+ */
 const DEFAULT_FORM = {
   titulo: '',
   empresa: '',
@@ -126,7 +137,7 @@ const DEFAULT_FORM = {
     endereco: ''
   },
   is_urgent: false,
-  is_featured: false,
+  is_featured: false, // Destaque Premium (VIP)
   recruiter_email: ''
 };
 
@@ -171,6 +182,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
     return '';
   });
 
+  // Busca estados do IBGE ao montar o componente
   useEffect(() => {
     fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
       .then(res => res.json())
@@ -178,6 +190,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
       .catch(err => console.error(err));
   }, []);
 
+  // Busca municípios do IBGE sempre que o estado selecionado mudar
   useEffect(() => {
     if (selectedEstado) {
       fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedEstado}/municipios?orderBy=nome`)
@@ -224,7 +237,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
     }
   };
 
-  // Otimização: Recalcular IA apenas ao sair do campo (onBlur) ou em mudanças críticas
+  // Otimização: Recalcular análise da IA apenas ao sair do campo (onBlur) para evitar lag
   const [aiData, setAiData] = useState(formData);
   
   const handleBlur = () => {
@@ -530,7 +543,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
               <div className="premium-card-icon">💎</div>
               <div className="premium-card-info">
                 <div className="premium-card-top">
-                  <span>Destaque VIP</span>
+                  <span>Destaque Premium</span>
                   <div className="p-badge gold">PREMIUM</div>
                 </div>
                 <p>Sua vaga fixada no topo com borda dourada. Máxima visibilidade garantida.</p>

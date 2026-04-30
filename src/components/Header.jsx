@@ -1,3 +1,9 @@
+/**
+ * COMPONENTE: Header
+ * OBJETIVO: Cabeçalho unificado da aplicação com efeito de scroll e saudações IA.
+ * POR QUE: Centraliza a identidade visual e navegação principal, integrando
+ * o motor de saudações contextuais 'AIGreeting' para humanizar a interface.
+ */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AIGreeting } from './AIGreeting';
@@ -26,8 +32,8 @@ export function Header() {
         
         <nav className="nav-links">
           <Link to="/sobre" className="nav-link hidden-mobile">Sobre</Link>
+          <Link to="/para-empresas" className="nav-link hidden-mobile">Para Empresas</Link>
           <Link to="/contato" className="nav-link hidden-mobile">Contato</Link>
-          <Link to="/" className="nav-link hidden-mobile">Explorar Vagas</Link>
           <Link to="/publicar" className="btn-header-publish">
             Anunciar Vaga
             <div className="btn-shine"></div>

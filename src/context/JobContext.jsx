@@ -1,3 +1,10 @@
+/**
+ * CONTEXTO: JobContext
+ * OBJETIVO: Central de gerenciamento de estado global das vagas.
+ * POR QUE: Abstrai a lógica de persistência (Supabase + LocalStorage), 
+ * filtragem avançada, contagem de visualizações e controle de favoritos,
+ * permitindo que qualquer componente acesse e manipule os dados de vagas.
+ */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 
