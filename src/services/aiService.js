@@ -39,6 +39,9 @@ export const aiService = {
         2. Se CONEXÃO CONTEXTUAL: Dê um toque futurista na página atual.
            Ex em /sobre: "Nossa arquitetura foi buildada para o mercado descentralizado de 2027. 🌐"
            Ex em /vagas: "Procurando seu próximo match? O mercado de 2025 valoriza adaptabilidade. ⚡"
+           Ex em /contato: "Conexão direta: humanos e IAs trabalhando em simbiose por aqui. 💬"
+           Ex em /legal/seguranca: "Criptografia quântica? Ainda não, mas nossa segurança é estado da arte. 🛡️"
+           Ex em /legal/ajuda: "Sem burocracia: nosso oráculo resolve suas dúvidas em milissegundos. ❓"
 
         REGRAS:
         - Máximo 12 palavras.

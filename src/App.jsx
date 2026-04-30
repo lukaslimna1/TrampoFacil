@@ -1,3 +1,9 @@
+/**
+ * CORE: App Component
+ * OBJETIVO: Ponto de montagem principal da aplicação e definição de rotas.
+ * POR QUE: Centraliza a lógica de navegação, providers de estado (Jobs, Toast)
+ * e o carregamento sob demanda (Lazy Loading) das páginas para performance.
+ */
 import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { JobProvider } from './context/JobContext';
@@ -15,6 +21,7 @@ const Success = lazy(() => import('./pages/Success').then(module => ({ default: 
 const SavedJobs = lazy(() => import('./pages/SavedJobs').then(module => ({ default: module.SavedJobs })));
 const About = lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const Contact = lazy(() => import('./pages/Contact'));
+const Legal = lazy(() => import('./pages/Legal').then(module => ({ default: module.Legal })));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Global Loading Fallback
@@ -44,6 +51,8 @@ function App() {
                   <Route path="/salvos" element={<SavedJobs />} />
                   <Route path="/sobre" element={<About />} />
                   <Route path="/contato" element={<Contact />} />
+                  <Route path="/legal/:section" element={<Legal />} />
+                  <Route path="/legal" element={<Legal />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>

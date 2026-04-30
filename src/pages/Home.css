@@ -128,16 +128,30 @@
   z-index: 40;
 }
 
-/* FEED LAYOUT */
+/* FEED LAYOUT - OPTIMIZED FOR LARGE SCREENS */
 .home-feed-layout {
   display: flex;
-  gap: 24px;
-  margin-top: 2rem;
-  transition: all 0.2s linear;
+  gap: 32px; /* Aumentado o gap para mais respiro */
+  margin-top: 2.5rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+/* Forçar container maior na home para aproveitar monitores largos */
+.home-container .container {
+  max-width: 100%;
+  padding: 0 40px;
+}
+
+@media (min-width: 1400px) {
+  .home-container .container {
+    padding: 0 60px;
+  }
 }
 
 .home-job-list {
-  transition: all 0.5s ease;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 0; /* Evita quebra de flexbox */
 }
 
 .results-count {

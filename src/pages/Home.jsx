@@ -1,5 +1,11 @@
+/**
+ * PÁGINA: Home (Feed de Oportunidades)
+ * OBJETIVO: Ponto de entrada principal da plataforma, exibindo vagas em tempo real.
+ * POR QUE: Utiliza um sistema de busca inteligente e filtragem dinâmica para 
+ * conectar candidatos às melhores vagas sem a necessidade de login (Accountless).
+ */
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useJobs } from '../context/JobContext';
 import { JobCard } from '../components/JobCard';
 import { JobCardSkeleton } from '../components/JobCardSkeleton';
@@ -13,21 +19,22 @@ import './Home.css';
 
 export function Home() {
   const { jobs, isLoading, isJobHot } = useJobs();
-  const [activeStory, setActiveStory] = useState('todos');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeStory, setActiveStory] = useState(searchParams.get('story') || 'todos');
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
   
-  // Estado consolidado de filtros vindo do SearchHub
+  // Inicializar estado dos filtros a partir da URL
   const [filterParams, setFilterParams] = useState({
-    searchTerm: '',
-    locationTerm: '',
+    searchTerm: searchParams.get('q') || '',
+    locationTerm: searchParams.get('loc') || '',
     aiFilters: null,
-    modality: 'todos',
-    level: 'todos',
-    salary: 'todos',
-    date: 'todos',
-    contract: 'todos',
-    sector: 'todos'
+    modality: searchParams.get('mod') || 'todos',
+    level: searchParams.get('lvl') || 'todos',
+    salary: searchParams.get('sal') || 'todos',
+    date: searchParams.get('date') || 'todos',
+    contract: searchParams.get('type') || 'todos',
+    sector: searchParams.get('sec') || 'todos'
   });
   
   const navigate = useNavigate();
@@ -37,6 +44,22 @@ export function Home() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Sincronizar estado com a URL sempre que mudar
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (filterParams.searchTerm) params.set('q', filterParams.searchTerm);
+    if (filterParams.locationTerm) params.set('loc', filterParams.locationTerm);
+    if (filterParams.modality !== 'todos') params.set('mod', filterParams.modality);
+    if (filterParams.level !== 'todos') params.set('lvl', filterParams.level);
+    if (filterParams.salary !== 'todos') params.set('sal', filterParams.salary);
+    if (filterParams.date !== 'todos') params.set('date', filterParams.date);
+    if (filterParams.contract !== 'todos') params.set('type', filterParams.contract);
+    if (filterParams.sector !== 'todos') params.set('sec', filterParams.sector);
+    if (activeStory !== 'todos') params.set('story', activeStory);
+    
+    setSearchParams(params, { replace: true });
+  }, [filterParams, activeStory, setSearchParams]);
 
   const dynamicStories = useMemo(() => [
     { id: 'todos', label: 'Tudo', icon: <Briefcase size={20} /> },
@@ -142,6 +165,7 @@ export function Home() {
             <SearchHub 
               onFilterChange={(newParams) => setFilterParams(prev => ({ ...prev, ...newParams }))}
               availableSectors={availableSectors}
+              initialValues={filterParams}
             />
          </div>
       </section>
@@ -156,7 +180,7 @@ export function Home() {
 
       <div className="container">
         <div className={`home-feed-layout ${selectedJobId && isDesktop ? 'split-active' : ''}`}>
-          <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 420px' : '1 1 100%' }}>
+          <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 500px' : '1 1 100%' }}>
             <h2 className="results-count">
               {isLoading ? 'Buscando vagas...' : `${filteredJobs.length} vagas encontradas`}
               {activeStory !== 'todos' && <span className="active-filter-badge">Filtrado por: {activeStory}</span>}

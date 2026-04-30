@@ -1,3 +1,9 @@
+/**
+ * PÁGINA: About (Manifesto e Visão)
+ * OBJETIVO: Comunicar a missão, valores e o roadmap do Trampo Fácil.
+ * POR QUE: Constrói autoridade e confiança, explicando o propósito da plataforma
+ * e como a tecnologia (IA) está sendo usada para humanizar o recrutamento.
+ */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 

@@ -60,6 +60,17 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Suporte Col */}
+          <div className="footer-col">
+            <h4 className="footer-heading">Suporte</h4>
+            <div className="footer-links">
+              <Link to="/legal/ajuda" className="footer-link">FAQ / Ajuda</Link>
+              <Link to="/legal/seguranca" className="footer-link">Segurança</Link>
+              <Link to="/legal/termos" className="footer-link">Termos de Uso</Link>
+              <Link to="/legal/privacidade" className="footer-link">Privacidade</Link>
+            </div>
+          </div>
+
           {/* Social / Siga-nos */}
           <div className="footer-col">
             <h4 className="footer-heading">Siga-nos</h4>
@@ -82,10 +93,10 @@ export function Footer() {
         <div className="container footer-bottom-flex">
           <p className="footer-copy">© {new Date().getFullYear()} Trampo Fácil. Todos os direitos reservados.</p>
           <div className="footer-legal-links">
-            <Link to="#">Acessibilidade</Link>
-            <Link to="#">Privacidade</Link>
-            <Link to="#">Termos de Uso</Link>
-            <Link to="#">Cookies</Link>
+            <Link to="/legal/seguranca">Segurança</Link>
+            <Link to="/legal/privacidade">Privacidade</Link>
+            <Link to="/legal/termos">Termos</Link>
+            <Link to="/legal/ajuda">Ajuda/FAQ</Link>
           </div>
         </div>
       </div>

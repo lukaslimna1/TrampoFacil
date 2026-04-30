@@ -131,9 +131,21 @@ const trampoAI = {
 
     // Fallbacks específicos para evitar repetição
     if (pathname === '/sobre') return "Conheça nossa visão: estamos reinventando o trampo. 🚀";
-    if (pathname === '/vagas') return "Explore as melhores oportunidades tech do mercado. ⚡";
+    if (pathname === '/vagas' || pathname === '/') return "Explore as melhores oportunidades tech do mercado. ⚡";
+    if (pathname === '/contato') return "Dúvidas ou sugestões? Nosso time humano está a postos. 💬";
+    if (pathname === '/salvos') return "Suas vagas favoritas organizadas em um só lugar. 💾";
+    if (pathname === '/sucesso') return "Vaga publicada! O próximo talento está a um clique. 🎉";
+    if (pathname.includes('/legal/seguranca')) return "Sua proteção é nossa prioridade técnica absoluta. 🛡️";
+    if (pathname.includes('/legal/termos')) return "Transparência total: entenda como nossa plataforma funciona. 📄";
+    if (pathname.includes('/legal/privacidade')) return "Seus dados, suas regras. Em total conformidade com a LGPD. 🔐";
+    if (pathname.includes('/legal/ajuda')) return "Dúvidas? Nosso guia rápido resolve seu problema em segundos. ❓";
     if (pathname.startsWith('/vaga/')) return "Analisando esse job... Parece um ótimo match! 🔍";
     
+    // Fallback genérico para páginas não mapeadas
+    if (pathname !== '/') {
+      return "Navegando pelo futuro: cada página é um novo insight. 🌐";
+    }
+
     return "Bora encontrar o match perfeito para sua carreira? ✨";
   }
 };

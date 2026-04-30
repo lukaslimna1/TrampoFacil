@@ -19,12 +19,12 @@ export function SearchHub({
   
   // Filtros Manuais
   const [filters, setFilters] = useState({
-    modality: 'todos',
-    level: 'todos',
-    salary: 'todos',
-    date: 'todos',
-    contract: 'todos',
-    sector: 'todos'
+    modality: initialValues.modality || 'todos',
+    level: initialValues.level || 'todos',
+    salary: initialValues.salary || 'todos',
+    date: initialValues.date || 'todos',
+    contract: initialValues.contract || 'todos',
+    sector: initialValues.sector || 'todos'
   });
 
   // Notificar pai sobre mudanças

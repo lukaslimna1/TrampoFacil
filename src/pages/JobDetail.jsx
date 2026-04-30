@@ -65,15 +65,44 @@ export function JobDetail({ inlineJobId }) {
   const isSaved = isJobSaved ? isJobSaved(job.id) : false;
 
   const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: job.titulo,
-        text: `Vaga para ${job.titulo} na ${job.empresa || 'Empresa Confidencial'}`,
-        url: window.location.href,
+    const shareUrl = `${window.location.origin}/vaga/${job.id}`;
+    const shareData = {
+      title: job.titulo,
+      text: `Confira esta vaga: ${job.titulo} na ${job.empresa || 'Empresa Confidencial'}`,
+      url: shareUrl,
+    };
+
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      navigator.share(shareData).catch((err) => {
+        if (err.name !== 'AbortError') {
+          copyToClipboard(shareUrl);
+        }
       });
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      showToast('Link copiado para a área de transferência!', 'success');
+      copyToClipboard(shareUrl);
+    }
+  };
+
+  const copyToClipboard = (text) => {
+    try {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Link da vaga copiado!', 'success');
+      }).catch(() => {
+        // Fallback para navegadores muito antigos ou contextos inseguros
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          showToast('Link da vaga copiado!', 'success');
+        } catch {
+          showToast('Não foi possível copiar o link.', 'error');
+        }
+        document.body.removeChild(textArea);
+      });
+    } catch {
+      showToast('Erro ao compartilhar.', 'error');
     }
   };
 

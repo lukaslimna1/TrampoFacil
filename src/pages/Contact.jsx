@@ -1,4 +1,11 @@
+/**
+ * PÁGINA: Contact (Atendimento ao Usuário)
+ * OBJETIVO: Facilitar o contato direto entre usuários e a equipe do Trampo Fácil.
+ * POR QUE: Centraliza solicitações de suporte, parcerias e denúncias de vagas falsas,
+ * integrando links de privacidade para reforçar o compromisso com a transparência.
+ */
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useToast } from '../context/ToastContextCore';
 import { 
   FiSend, FiMail, FiMessageCircle, 
@@ -61,56 +68,30 @@ export default function Contact() {
     <div className="contact-page-premium">
       <div className="tech-grid-overlay"></div>
 
-      {/* Hero Section */}
-      <section className="contact-hero-premium reveal">
-        <div className="container hero-flex-v4">
-          <div className="hero-text-side-v4">
-            <div className="m-tag-v4">CENTRAL DE ATENDIMENTO</div>
-            <h1 className="hero-title-v4">
-              Conecte-se com o <br/>
-              <span className="text-gradient-v4">Trampo Fácil.</span>
-            </h1>
-            <p className="hero-desc-v4">
-              Dúvidas, parcerias ou suporte? Nossa equipe está pronta para 
-              ajudar você a impulsionar sua carreira ou encontrar o talento ideal.
-            </p>
-          </div>
-
-          <div className="hero-visual-side-v4">
-            <div className="floating-ui-container">
-               {/* Card de Status Flutuante */}
-               <div className="floating-ui-card f-card-1">
-                  <div className="card-top">
-                    <div className="tech-icon"><FiUsers size={18} /></div>
-                    <div className="match-score">Suporte Ativo</div>
-                  </div>
-                  <div className="card-content">
-                    <div className="mini-bar"><div className="mini-fill" style={{width: '100%'}}></div></div>
-                    <p className="mini-text">Tempo de resposta: &lt; 24h</p>
-                  </div>
-               </div>
-
-               {/* Card de Segurança */}
-               <div className="floating-ui-card f-card-2">
-                  <div className="card-top">
-                    <div className="tech-icon" style={{background: 'rgba(59, 130, 246, 0.2)', color: '#3b82f6'}}><FiShield size={18} /></div>
-                    <div className="match-score" style={{color: '#3b82f6'}}>Seguro</div>
-                  </div>
-                  <p className="mini-text">Proteção de Dados Ativa</p>
-               </div>
-
-               {/* Núcleo de Comunicação */}
-               <div className="central-tech-core">
-                  <div className="core-inner">
-                    <FiBriefcase size={40} className="core-brain-icon" />
-                  </div>
-                  <div className="core-ring r1"></div>
-                  <div className="core-ring r2"></div>
-               </div>
+      {/* Compact Header Section */}
+      <header className="contact-compact-header reveal">
+        <div className="container">
+          <div className="header-flex-v4">
+            <div className="header-text-side-v4">
+              <div className="m-tag-v4">CONTATO</div>
+              <h1 className="hero-title-v4">
+                Conecte-se com o <span className="text-gradient-v4">Trampo Fácil.</span>
+              </h1>
+              <p className="hero-desc-v4">
+                Dúvidas, parcerias ou suporte? Nossa equipe está pronta para 
+                te ajudar agora.
+              </p>
+            </div>
+            
+            <div className="header-stats-v4 hidden-mobile">
+              <div className="stat-pill-v4">
+                <span className="pill-dot"></span>
+                <span>Resposta em &lt; 24h</span>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
       <div className="container">
         <div className="contact-grid-premium">
@@ -152,10 +133,10 @@ export default function Contact() {
               <div className="card-glass-glow"></div>
               
               <div className="form-header-v4">
-                <div className="header-icon-v4"><FiBriefcase size={24} /></div>
+                <div className="header-icon-v4"><FiSend size={24} /></div>
                 <div className="header-text-v4">
-                  <h4>Envie sua Mensagem</h4>
-                  <p>Preencha os campos abaixo para iniciarmos o contato.</p>
+                  <h4>Canal de Comunicação Direto</h4>
+                  <p>Sua mensagem será processada pelo nosso motor de atendimento prioritário.</p>
                 </div>
               </div>
 
@@ -186,13 +167,17 @@ export default function Contact() {
               </div>
 
               <div className="form-group-v4">
-                <label>Assunto / Perfil</label>
+                <label>Assunto / Perfil de Contato</label>
                 <div className="select-wrapper-v4">
                   <select name="subject" value={formData.subject} onChange={handleChange}>
-                    <option value="Candidato">Sou Candidato (Buscando Vagas)</option>
-                    <option value="Recrutador">Sou Recrutador ou Empresa</option>
-                    <option value="Parceria">Quero ser um Parceiro</option>
-                    <option value="Suporte">Dúvidas ou Problemas Técnicos</option>
+                    <option value="Candidato">👤 Sou Candidato (Buscando Vagas)</option>
+                    <option value="Recrutador">🏢 Sou Recrutador ou Empresa</option>
+                    <option value="Privacidade">🔐 Privacidade e LGPD (Dados Pessoais)</option>
+                    <option value="Seguranca">🛡️ Reportar Vaga Suspeita / Denúncia</option>
+                    <option value="Legal">📄 Termos de Uso e Compliance</option>
+                    <option value="Parceria">🤝 Quero ser um Parceiro</option>
+                    <option value="Suporte">⚙️ Suporte Técnico ou Erros</option>
+                    <option value="Outros">✨ Outros Assuntos</option>
                   </select>
                 </div>
               </div>
@@ -202,17 +187,22 @@ export default function Contact() {
                 <textarea 
                   name="message" 
                   rows="5" 
-                  placeholder="No que podemos te ajudar hoje?"
+                  placeholder="Descreva detalhadamente como podemos te ajudar..."
                   required
                   value={formData.message}
                   onChange={handleChange}
                 ></textarea>
               </div>
 
-              <button type="submit" className="btn-v4-main">
-                <span>Enviar Mensagem</span>
-                <FiSend size={18} />
-              </button>
+              <div className="form-footer-v4">
+                <button type="submit" className="btn-v4-main">
+                  <span>Enviar Mensagem Agora</span>
+                  <FiSend size={18} />
+                </button>
+                <p className="form-privacy-note">
+                  Ao enviar, você concorda com nossa <Link to="/legal/privacidade">Política de Privacidade</Link>.
+                </p>
+              </div>
             </form>
           </main>
         </div>
