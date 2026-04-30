@@ -29,7 +29,7 @@ O maior diferencial do Trampo Fácil é eliminar a necessidade de contas e senha
 A v5.0 foca na expansão B2B com uma nova experiência para recrutadores:
 
 *   **Página "Para Empresas"**: Nova landing page de conversão com seções de Hero, Roadmap, IA e Diferenciais.
-*   **Monetização & Destaques**: Integração dos planos **Vaga Urgente** (Hot status) e **Destaque Premium** (Borda dourada/VIP) para máxima visibilidade.
+*   **Monetização & Destaques**: Sincronização total dos planos **Vaga Urgente (HOT)** e **Destaque Premium (PREMIUM)** entre Landing Page, Formulário e Feed.
 *   **Fluxo de Pagamento**: Preparado para integração com **Stripe** para processamento automático de destaques.
 
 ---
@@ -63,8 +63,8 @@ O motor `Trampo IA` (Gemini 1.5 Flash) foi sincronizado em toda a plataforma:
 | **Arquitetura** | React 19 + Context API | Interface que nunca trava e estado sincronizado. |
 | **Layout Expansivo** | Grid Ultra-Wide + Home 40/60 Split | Aproveitamento total de espaço para feed e preview simultâneos. |
 | **Persistência** | Supabase Real-time | Vagas e visualizações atualizadas instantaneamente. |
-| **Documentação** | JSDoc + Comentários de Objetivo | Código 100% autodocumentado em todos os arquivos. |
-| **Job Cards v2** | Spacious Design (32px padding) | Maior legibilidade e suporte para **Destaque Premium**. |
+| **Documentação** | JSDoc + Comentários | Código 100% autodocumentado com comentários explicativos em todos os arquivos. |
+| **Job Cards v2** | Spacious Design (32px padding) | Maior legibilidade e suporte para **HOT/PREMIUM** badges. |
 
 ---
 
@@ -76,7 +76,7 @@ graph TD
     App --> ForCompanies[ForCompanies.jsx]
     App --> Legal[Legal.jsx Orchestrator]
     Home[Home.jsx] --> Search[SearchHub.jsx]
-    Home --> Cards[JobCard v2 - Destaque Premium]
+    Home --> Cards[JobCard v2 - HOT/PREMIUM]
     Detail[JobDetail.jsx] --> Apply[WhatsApp/E-mail]
 ```
 
@@ -86,7 +86,7 @@ graph TD
 
 ### ✅ Concluído
 - **v4.9** – Central de Transparência Modular + Design de Cards Otimizado
-- **v5.0** – **Landing Page para Empresas** + Sincronização de Destaques Premium
+- **v5.0** – **Landing Page para Empresas** + Sincronização de Terminologia (HOT/PREMIUM)
 
 ### 🚀 Próximas Evoluções
 - **Dashboard do Recrutador** – Centralização da gestão de vagas e métricas.

@@ -531,7 +531,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
                   <span>Vaga Urgente</span>
                   <div className="p-badge">HOT</div>
                 </div>
-                <p>Destaque vermelho pulsante no feed por 7 dias para contratações imediatas.</p>
+                <p>Para quem precisa contratar rápido. Destaque visual no feed e prioridade nas listagens.</p>
               </div>
               <div className="premium-card-check">
                  <div className="custom-check"></div>
@@ -546,7 +546,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
                   <span>Destaque Premium</span>
                   <div className="p-badge gold">PREMIUM</div>
                 </div>
-                <p>Sua vaga fixada no topo com borda dourada. Máxima visibilidade garantida.</p>
+                <p>Máxima visibilidade na plataforma. Vaga fixada no topo e destaque visual completo (VIP).</p>
               </div>
               <div className="premium-card-check">
                  <div className="custom-check"></div>

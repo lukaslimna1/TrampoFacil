@@ -457,10 +457,18 @@
   width: fit-content;
 }
 
-.fc-price-card h3 {
+.fc-plan-title {
   font-size: 1.75rem;
   font-weight: 900;
   line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.fc-plan-desc {
+  font-size: 1rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-bottom: 1rem;
 }
 
 .fc-price-list {

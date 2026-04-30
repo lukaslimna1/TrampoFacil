@@ -116,7 +116,7 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
               {job.empresa || 'Empresa Confidencial'}
               {isFeatured && (
                 <span className="jc-badge-vip-text">
-                  <Star size={12} fill="currentColor" /> Destaque Premium
+                  <Star size={12} fill="currentColor" /> PREMIUM
                 </span>
               )}
            </div>
@@ -132,11 +132,11 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
       <div className="jc-post-content">
          <h3 className="jc-title">
            {job.titulo}
-           {isHot && (
-             <span className={`badge-hot-inline ${isUrgentActive ? 'is-manual-urgent' : ''}`}>
-               <Flame size={12} /> {isUrgentActive ? 'URGENTE' : 'Em Alta'}
-             </span>
-           )}
+            {isHot && (
+              <span className={`badge-hot-inline ${isUrgentActive ? 'is-manual-urgent' : ''}`}>
+                <Flame size={12} /> {isUrgentActive ? 'HOT' : 'Em Alta'}
+              </span>
+            )}
          </h3>
       </div>
 

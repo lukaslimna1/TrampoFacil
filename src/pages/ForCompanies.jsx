@@ -189,9 +189,10 @@ export default function ForCompanies() {
           <div className="fc-pricing-grid">
             <div className="fc-price-card">
               <div className="fc-price-badge-urgent">
-                <Flame size={14} /> <span>Vaga Urgente</span>
+                <Flame size={14} /> <span>HOT</span>
               </div>
-              <h3>Para quem precisa contratar rápido</h3>
+              <h3 className="fc-plan-title">Vaga Urgente</h3>
+              <p className="fc-plan-desc">Para quem precisa contratar rápido</p>
               <ul className="fc-price-list">
                 <li><CheckCircle size={16} /> Destaque visual no feed</li>
                 <li><CheckCircle size={16} /> Prioridade nas listagens</li>
@@ -204,9 +205,10 @@ export default function ForCompanies() {
 
             <div className="fc-price-card featured">
               <div className="fc-price-badge-premium">
-                <Gem size={14} /> <span>Destaque Premium</span>
+                <Gem size={14} /> <span>PREMIUM</span>
               </div>
-              <h3 className="text-white">Máxima visibilidade na plataforma</h3>
+              <h3 className="fc-plan-title text-white">Destaque Premium</h3>
+              <p className="fc-plan-desc text-white">Máxima visibilidade na plataforma</p>
               <ul className="fc-price-list text-white">
                 <li><CheckCircle size={16} /> Vaga fixada no topo</li>
                 <li><CheckCircle size={16} /> Destaque visual completo (VIP)</li>
