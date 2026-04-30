@@ -1,6 +1,9 @@
 /**
- * TRAMPO AI - Sistema de Inteligência de Mercado & Otimização de Vagas
- * v4.1 - Motor de Greetings Híbrido (Gemini) + Scores Locais
+ * MÓDULO: Trampo AI
+ * OBJETIVO: Inteligência analítica para recrutadores e candidatos.
+ * POR QUE: Centraliza a lógica de 'Score de Performance', análise de mercado salarial
+ * e geração de insights em tempo real, garantindo que as vagas publicadas
+ * tenham a melhor qualidade possível e os candidatos entendam o valor da oferta.
  */
 import { aiService } from '../services/aiService';
 
