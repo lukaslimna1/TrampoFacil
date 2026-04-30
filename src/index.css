@@ -95,28 +95,28 @@ h3 {
   padding: 0 16px;
 }
 
-/* Responsividade Progressiva do Container */
+/* Responsividade Progressiva do Container - Expandida para ocupar mais tela */
 @media (min-width: 768px) {
   .container {
-    max-width: 768px;
+    max-width: 95%;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .container {
-    max-width: 1200px;
+    max-width: 1700px;
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1600px) {
   .container {
-    max-width: 1600px;
+    max-width: 1850px;
   }
 }
 
-@media (min-width: 1900px) {
+@media (min-width: 1920px) {
   .container {
-    max-width: 1800px; /* Expansão para monitores Ultra-Wide */
+    max-width: 98%; /* Quase total em Ultra-Wide */
   }
 }
 

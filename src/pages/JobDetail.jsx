@@ -100,7 +100,7 @@ export function JobDetail({ inlineJobId }) {
   };
 
   return (
-    <div className={`container job-detail-page ${isInline ? 'inline-mode' : ''}`}>
+    <div className={`${isInline ? 'job-detail-container-inline' : 'container'} job-detail-page ${isInline ? 'inline-mode' : ''}`}>
       {!isInline && (
         <div className="back-link-wrapper">
           <Link to="/" className="back-link">

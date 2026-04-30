@@ -5,17 +5,31 @@ import { JobCard } from '../components/JobCard';
 import { JobCardSkeleton } from '../components/JobCardSkeleton';
 import { JobDetail } from './JobDetail';
 import { StoriesFilter } from '../components/StoriesFilter';
-import { Search, MapPin, Briefcase, Flame, Accessibility, Home as HomeIcon, Zap } from 'lucide-react';
+import { SearchHub } from '../components/SearchHub';
+import { 
+  Briefcase, Flame, Accessibility, Home as HomeIcon, Search
+} from 'lucide-react';
 import './Home.css';
 
 export function Home() {
   const { jobs, isLoading, isJobHot } = useJobs();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [locationTerm, setLocationTerm] = useState('');
   const [activeStory, setActiveStory] = useState('todos');
-  const [isFiltering, setIsFiltering] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
+  
+  // Estado consolidado de filtros vindo do SearchHub
+  const [filterParams, setFilterParams] = useState({
+    searchTerm: '',
+    locationTerm: '',
+    aiFilters: null,
+    modality: 'todos',
+    level: 'todos',
+    salary: 'todos',
+    date: 'todos',
+    contract: 'todos',
+    sector: 'todos'
+  });
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,19 +45,70 @@ export function Home() {
     { id: 'remoto', label: 'Remoto', icon: <HomeIcon size={20} /> }
   ], []);
 
+  const availableSectors = useMemo(() => {
+    if (!jobs) return [];
+    return Array.from(new Set(jobs.map(j => j.setor).filter(Boolean))).slice(0, 8);
+  }, [jobs]);
+
   const filteredJobs = useMemo(() => {
     if (!jobs) return [];
     
-    const filtered = jobs.filter(job => {
-      const matchSearch = (job.titulo + job.empresa).toLowerCase().includes(searchTerm.toLowerCase());
-      const matchLocation = job.cidade.toLowerCase().includes(locationTerm.toLowerCase());
-      
-      let matchStory = true;
-      if (activeStory === 'remoto') matchStory = job.modalidade_trabalho === 'Remoto';
-      else if (activeStory === 'inclusao') matchStory = Boolean(job.pcd || job.exclusiva_pcd || Object.values(job.afirmativa || {}).some(Boolean));
-      else if (activeStory === 'hot') matchStory = isJobHot(job);
+    const { 
+      searchTerm, locationTerm, aiFilters, modality, 
+      level, salary, date, contract, sector 
+    } = filterParams;
 
-      return matchSearch && matchLocation && matchStory;
+    const filtered = jobs.filter(job => {
+      // 1. Busca básica
+      const baseMatch = (job.titulo + job.empresa + (job.descricao || '')).toLowerCase().includes(searchTerm.toLowerCase());
+      const locationMatch = job.cidade.toLowerCase().includes(locationTerm.toLowerCase());
+      
+      // 2. Filtros de Stories
+      let storyMatch = true;
+      if (activeStory === 'remoto') storyMatch = job.modalidade_trabalho === 'Remoto';
+      else if (activeStory === 'inclusao') storyMatch = Boolean(job.pcd || job.exclusiva_pcd || Object.values(job.afirmativa || {}).some(Boolean));
+      else if (activeStory === 'hot') storyMatch = isJobHot(job);
+
+      // 3. Filtros Manuais (Avançados)
+      let manualMatch = true;
+      if (modality !== 'todos') manualMatch = manualMatch && job.modalidade_trabalho === modality;
+      if (level !== 'todos') manualMatch = manualMatch && job.nivel === level;
+      if (contract !== 'todos') manualMatch = manualMatch && job.tipo_contrato === contract;
+      if (sector !== 'todos') manualMatch = manualMatch && job.setor === sector;
+      
+      if (salary !== 'todos') {
+        const val = parseInt(String(job.salario || '0').replace(/[^\d]/g, '')) || 0;
+        if (salary === 'baixo') manualMatch = manualMatch && val < 3000;
+        else if (salary === 'medio') manualMatch = manualMatch && val >= 3000 && val <= 7000;
+        else if (salary === 'alto') manualMatch = manualMatch && val > 7000;
+        else if (salary === 'combinar') manualMatch = manualMatch && (val === 0 || String(job.salario).toLowerCase().includes('combinar'));
+      }
+
+      if (date !== 'todos') {
+        const created = new Date(job.criado_em);
+        const now = new Date();
+        const diffHours = (now - created) / (1000 * 60 * 60);
+        if (date === '24h') manualMatch = manualMatch && diffHours <= 24;
+        else if (date === '3d') manualMatch = manualMatch && diffHours <= 72;
+        else if (date === '7d') manualMatch = manualMatch && diffHours <= 168;
+      }
+
+      // 4. Filtros Inteligentes (AI) - Atuam como reforço
+      let aiMatch = true;
+      if (aiFilters) {
+        if (aiFilters.cargo) {
+          aiMatch = aiMatch && (job.titulo.toLowerCase().includes(aiFilters.cargo.toLowerCase()) || 
+                               job.descricao?.toLowerCase().includes(aiFilters.cargo.toLowerCase()));
+        }
+        if (aiFilters.periodo) {
+          const desc = (job.descricao || '').toLowerCase();
+          if (aiFilters.periodo === 'noite') {
+             aiMatch = aiMatch && (desc.includes('noite') || desc.includes('noturno') || desc.includes('18:00') || desc.includes('22:00'));
+          }
+        }
+      }
+
+      return baseMatch && locationMatch && storyMatch && manualMatch && aiMatch;
     });
 
     return [...filtered].sort((a, b) => {
@@ -53,7 +118,7 @@ export function Home() {
       if (!a.is_urgent && b.is_urgent) return 1;
       return new Date(b.criado_em) - new Date(a.criado_em);
     });
-  }, [jobs, searchTerm, locationTerm, activeStory, isJobHot]);
+  }, [jobs, activeStory, isJobHot, filterParams]);
 
   const handleJobClick = (jobId) => {
     if (isDesktop) {
@@ -63,12 +128,9 @@ export function Home() {
     }
   };
 
-
   return (
     <div className="home-container">
-      {/* Hero Full Width */}
       <section className="jd-home-hero-premium">
-         {/* Animated Tech Orbs */}
          <div className="tech-glow-orb"></div>
          
          <div className="container hero-content-top">
@@ -77,91 +139,67 @@ export function Home() {
                <p className="hero-subtitle">Chega de currículo no buraco negro. Aqui é direto ao ponto, 100% grátis e sem enrolação.</p>
             </div>
 
-            <div className="search-container-premium">
-               <div className="search-glass-box">
-                 <div className="search-input-field">
-                   <div className="si-icon"><Search size={22} /></div>
-                   <div className="si-content">
-                     <label>O que busca?</label>
-                     <input 
-                       type="text" 
-                       placeholder="Cargo ou empresa..." 
-                       value={searchTerm}
-                       onChange={(e) => setSearchTerm(e.target.value)}
-                     />
-                   </div>
-                 </div>
-                 
-                 <div className="search-field-divider"></div>
-
-                 <div className="search-input-field">
-                   <div className="si-icon"><MapPin size={22} /></div>
-                   <div className="si-content">
-                     <label>Onde?</label>
-                     <input 
-                       type="text" 
-                       placeholder="Cidade ou Remoto" 
-                       value={locationTerm}
-                       onChange={(e) => setLocationTerm(e.target.value)}
-                     />
-                   </div>
-                 </div>
-
-                 <button className="btn-search-hero">
-                   <Zap size={20} fill="currentColor" />
-                   <span>Buscar</span>
-                 </button>
-               </div>
-            </div>
+            <SearchHub 
+              onFilterChange={(newParams) => setFilterParams(prev => ({ ...prev, ...newParams }))}
+              availableSectors={availableSectors}
+            />
          </div>
       </section>
 
-      <div className="container">
-        <StoriesFilter stories={dynamicStories} activeFilter={activeStory} onFilterSelect={(id) => {
-          setIsFiltering(true);
-          setActiveStory(id);
-          setTimeout(() => setIsFiltering(false), 300);
-        }} />
+      <div className="container stories-wrapper">
+        <StoriesFilter 
+          stories={dynamicStories} 
+          activeFilter={activeStory} 
+          onFilterSelect={setActiveStory} 
+        />
+      </div>
 
+      <div className="container">
         <div className={`home-feed-layout ${selectedJobId && isDesktop ? 'split-active' : ''}`}>
-          <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 40%' : '1 1 100%' }}>
+          <div className="home-job-list" style={{ flex: selectedJobId && isDesktop ? '0 0 420px' : '1 1 100%' }}>
             <h2 className="results-count">
-              {isLoading || isFiltering ? 'Atualizando...' : `${filteredJobs.length} vagas encontradas`}
+              {isLoading ? 'Buscando vagas...' : `${filteredJobs.length} vagas encontradas`}
+              {activeStory !== 'todos' && <span className="active-filter-badge">Filtrado por: {activeStory}</span>}
             </h2>
             
-            {(isLoading || isFiltering) ? (
+            {isLoading ? (
                <div className="job-list-grid">
                   {[1, 2, 3].map(i => <JobCardSkeleton key={i} />)}
                </div>
             ) : (
               <div className="job-list-grid">
-                {filteredJobs.map(job => (
-                  <div 
-                    key={job.id} 
-                    className={`job-card-wrapper ${selectedJobId === job.id ? 'is-selected' : ''}`}
-                    onClick={() => handleJobClick(job.id)}
-                    style={{ 
-                      cursor: 'pointer',
-                      border: selectedJobId === job.id ? '2px solid var(--primary-color)' : '2px solid transparent',
-                      borderRadius: '24px',
-                      transition: 'all 0.3s ease',
-                      padding: '2px'
-                    }}
-                  >
-                    <JobCard job={job} isSelected={selectedJobId === job.id} />
+                {filteredJobs.length > 0 ? (
+                  filteredJobs.map(job => (
+                    <div 
+                      key={job.id} 
+                      className={`job-card-wrapper ${selectedJobId === job.id ? 'is-selected' : ''}`}
+                      onClick={() => handleJobClick(job.id)}
+                    >
+                      <JobCard job={job} isSelected={selectedJobId === job.id} />
+                    </div>
+                  ))
+                ) : (
+                  <div className="no-results-premium">
+                    <Search size={48} opacity={0.2} />
+                    <h3>Nenhuma vaga encontrada</h3>
+                    <p>Tente ajustar seus filtros ou sua busca inteligente.</p>
+                    <button className="btn-secondary" onClick={() => setFilterParams({
+                      searchTerm: '', locationTerm: '', aiFilters: null, modality: 'todos',
+                      level: 'todos', salary: 'todos', date: 'todos', contract: 'todos', sector: 'todos'
+                    })}>Ver todas as vagas</button>
                   </div>
-                ))}
+                )}
               </div>
             )}
           </div>
 
-          {selectedJobId && isDesktop && (
-            <aside className="home-job-preview">
-               <div className="preview-sticky-container">
-                  <JobDetail inlineJobId={selectedJobId} />
-               </div>
-            </aside>
-          )}
+            {selectedJobId && isDesktop ? (
+              <div className="home-job-preview">
+                <div className="preview-sticky-container">
+                  <JobDetail key={selectedJobId} inlineJobId={selectedJobId} />
+                </div>
+              </div>
+            ) : null}
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ const Success = lazy(() => import('./pages/Success').then(module => ({ default: 
 const SavedJobs = lazy(() => import('./pages/SavedJobs').then(module => ({ default: module.SavedJobs })));
 const About = lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Global Loading Fallback
 const PageLoader = () => (
@@ -43,6 +44,7 @@ function App() {
                   <Route path="/salvos" element={<SavedJobs />} />
                   <Route path="/sobre" element={<About />} />
                   <Route path="/contato" element={<Contact />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>

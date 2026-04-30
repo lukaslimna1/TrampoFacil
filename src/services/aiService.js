@@ -71,5 +71,42 @@ export const aiService = {
     } catch {
       return null;
     }
+  },
+
+  parseSearchQuery: async (query) => {
+    if (!genAI || !query) return null;
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const prompt = `
+        Analise a seguinte busca de emprego do usuário: "${query}"
+        
+        Extraia os filtros no formato JSON:
+        {
+          "cargo": string ou null,
+          "periodo": "manhã" | "tarde" | "noite" | "madrugada" | null,
+          "modalidade": "Presencial" | "Híbrido" | "Remoto" | null,
+          "nivel": "Estágio" | "Júnior" | "Pleno" | "Sênior" | null,
+          "cidade": string ou null,
+          "is_pcd": boolean
+        }
+        
+        Regras:
+        1. "noite" ou "noturno" -> periodo: "noite"
+        2. "em casa" ou "anywhere" -> modalidade: "Remoto"
+        3. "garçom", "dev", "faxina" -> cargo: "garçom", "dev", "faxina"
+        4. "pcd", "deficiente" -> is_pcd: true
+        
+        Exemplo: "trabalho de garçom a noite" -> {"cargo": "garçom", "periodo": "noite", "modalidade": null, "nivel": null, "cidade": null, "is_pcd": false}
+        Responda APENAS o JSON puramente, sem markdown.
+      `;
+      const result = await model.generateContent(prompt);
+      const text = result.response.text().trim();
+      // Limpar possível markdown
+      const jsonStr = text.includes('{') ? text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1) : text;
+      return JSON.parse(jsonStr);
+    } catch (e) {
+      console.error("Erro no Parse AI:", e);
+      return null;
+    }
   }
 };

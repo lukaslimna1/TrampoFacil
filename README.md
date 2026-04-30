@@ -1,148 +1,137 @@
-# 🚀 Trampo Fácil — Premium Job Ecosystem
+# 🚀 Trampo Fácil — Descoberta Inteligente de Oportunidades
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Status-Premium%20v4.5%20Stable-gold?style=for-the-badge&logo=react" alt="Status Premium" />
-  <img src="https://img.shields.io/badge/Lint-Zero%20Errors-brightgreen?style=for-the-badge&logo=eslint" alt="Lint Zero Errors" />
-  <img src="https://img.shields.io/badge/Engine-Optimized-blue?style=for-the-badge&logo=google-gemini" alt="Engine Optimized" />
-  <br />
-  <br />
-  <h3>Recrutamento com Inteligência Real e Design de Alto Impacto</h3>
-  <p>Um ecossistema ultra-rápido, orientado a dados e impulsionado por IA Generativa para conectar os melhores talentos às melhores oportunidades – de <b>qualquer área</b>.</p>
+  <img src="https://img.shields.io/badge/Versão-4.8%20Stable-gold?style=for-the-badge&logo=react" alt="Versão Stable" />
+  <img src="https://img.shields.io/badge/Performance‑Snappy%20UX-brightgreen?style=for-the-badge&logo=fastapi" alt="Performance Snappy" />
+  <img src="https://img.shields.io/badge/IA‑Gemini%201.5%20Flash-blue?style=for-the-badge&logo=google-gemini" alt="IA Gemini" />
+  <img src="https://img.shields.io/badge/DB‑Supabase-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase DB" />
+  <br /><br />
+  <h3>Encontre ou publique uma vaga em segundos — sem cadastro, sem burocracia.</h3>
+  <p>Velocidade, simplicidade e inteligência aplicadas ao mundo real do trabalho.</p>
 </div>
 
 ---
 
-## 🧭 Visão Geral
+## ⚡ Sistema Sem Cadastro (Accountless)
 
-**Trampo Fácil** não é apenas mais um mural de vagas. É uma plataforma projetada para performance extrema e experiência do usuário (UX) de nível empresarial. O projeto utiliza uma arquitetura moderna e refatorada para garantir fluidez total, estabilidade em tempo real e inteligência contextual.
+O maior diferencial do Trampo Fácil é eliminar a necessidade de contas e senhas.
 
-### 💎 Pilares do Projeto
-- **Performance de Elite**: Renderização otimizada com Vite 5, refatoração de estados para eliminar *cascading renders* (uso intensivo de `useMemo` e `useCallback`) e carregamento preditivo.
-- **Design Premium Tech**: Interface baseada em *Glassmorphism* v4, paletas de cores harmônicas de alto contraste e micro-interações fluidas aceleradas por GPU.
-- **Inteligência Contextual**: Integração nativa com o **Google Gemini** através do "Command Hub", fornecendo suporte e análise de mercado em tempo real.
-- **Código Ultra-Stable**: 100% livre de erros de linting (ESLint), garantindo uma base de código limpa, escalável e pronta para produção.
+| Usuário | Como funciona |
+|---|---|
+| **Empresas** | Publicam vagas através do formulário *PublishJob*. Cada vaga recebe um **token exclusivo** que gera um link seguro (`/vaga/:id?token=…`). Esse link permite editar ou remover a vaga sem login. |
+| **Candidatos** | Acessam imediatamente todas as funcionalidades (busca, filtros, aplicação) sem precisar criar conta. |
+| **Privacidade** | Nenhum dado de login é armazenado; apenas o token da vaga é mantido no banco. |
 
----
-
-## ✨ Diferenciais Exclusivos
-
-| Característica | Detalhes |
-| :--- | :--- |
-| **🚀 Acesso Irrestrito** | Plataforma 100% gratuita, sem paywalls ou barreiras para candidatos. |
-| **🧠 Trampo IA (v4.5)** | Motor de IA que gera resumos, dicas de carreira e análise de atratividade de vagas. |
-| **⚡ Instant Edit** | Sistema de edição de vagas via tokens de acesso rápido e seguro. |
-| **🎨 Glass UI System** | Design System proprietário baseado em transparências e profundidade visual. |
-| **📍 Localização Smart** | Integração em tempo real com API IBGE para gestão precisa de cidades e estados. |
-| **🔋 Supabase Stack** | Persistência robusta com PostgreSQL e sincronização em tempo real. |
+> Este modelo elimina uma das maiores barreiras das plataformas tradicionais: o cadastro obrigatório.
 
 ---
 
-## 🏗️ Arquitetura do Sistema
+## 🔄 Como Funciona
+
+1. **🔎 Descubra** – Busca por texto livre ou filtros rápidos (localização, modalidade, salário, etc.).
+2. **📄 Visualização** – *Split‑View* (lista + detalhes) para desktop; navegação simples em mobile.
+3. **🧾 Aplicação** – Clique em **WhatsApp**, **E‑mail** ou link externo; candidatura em um único clique.
+4. **✏️ Gerenciamento** – O recrutador recebe um link seguro e pode editar ou remover a vaga a qualquer momento.
+
+---
+
+## 🧠 Inteligência Trampo IA
+
+O módulo `src/utils/trampoAI.js` alimenta duas áreas principais:
+
+| Feature | O que entrega ao usuário |
+|---|---|
+| **Saudações Humanizadas** | Mensagens contextuais exibidas no cabeçalho (`AIGreeting`) que mudam conforme a página e hora do dia. |
+| **Avaliação de Vagas** | Um *score* de 0‑100 que considera clareza da descrição, presença de benefícios, inclusão e aderência a parâmetros de mercado (salário, senioridade). O *score* movimenta badges como **“Em Alta”**. |
+
+A IA utiliza Gemini 1.5 Flash principalmente para interpretação de linguagem natural (ex.: “vaga de dev remoto em SP”) – não é um pipeline completo de NLP de produção.
+
+---
+
+## 📊 Painel Técnico
+
+| Característica | Detalhe | Impacto no Produto |
+|---|---|---|
+| **Arquitetura** | React 19 + Context API | Interface que nunca trava e estado sincronizado. |
+| **Performance** | Snappy UX (0.2 s transitions) | Sensação de aplicativo nativo e ultra‑rápido. |
+| **Persistência** | Supabase Real‑time | Vagas atualizadas instantaneamente para todos. |
+| **Interface** | Glassmorphism v4 | Experiência moderna e diferenciada. |
+| **Tokenização** | `token_edicao` (hash SHA‑256) gerado ao publicar | Permite edição via link seguro – pilar **Accountless**. |
+
+---
+
+## 🏗️ Estrutura do Projeto
 
 ```mermaid
 graph TD
-    subgraph "Camada de Interface (Frontend)"
-        CH[Command Hub / Unified Header] --> Pages
-        Pages --> H[Home]
-        Pages --> JD[Job Details]
-        Pages --> EJ[Edit Job / Refactored]
-        Pages --> C[Contact]
-        TS[Toast System] -.-> Pages
-    end
-
-    subgraph "Motores de Inteligência"
-        AI[aiService.js] -->|Generative AI| Gemini[Google Gemini API]
-        FB[trampoAI.js] -->|Static Engine| Fallback[Local Intelligence]
-    end
-
-    subgraph "Infraestrutura & Persistência"
-        S[supabase.js] -->|PostgreSQL| DB[(Cloud Database)]
-        IBGE[IBGE API] -->|Location Data| EJ
-    end
-
-    CH --- AI
-    AI --- FB
-    Pages --- S
+    App[App.jsx] --> Context[JobContext.jsx]
+    Context --> Home[Home.jsx]
+    Context --> Detail[JobDetail.jsx]
+    Home --> Search[SearchHub.jsx]
+    Home --> Stories[StoriesFilter.jsx]
+    Detail --> Apply[Quick Apply (WhatsApp/E‑mail)]
+    Publish[PublishJob.jsx] --> Token[Secure Token Generation]
+    Edit[EditJob.jsx] --> Token
 ```
 
----
-
-## 🗺️ Roadmap de Evolução (2026)
-
-- [ ] **Match Preditivo (P&D)**: IA que antecipa o sucesso de um candidato na cultura da empresa.
-- [ ] **Auto-Otimização (Labs)**: Ajuste dinâmico de descrições de vagas com base no mercado em tempo real.
-- [ ] **Expansão Global**: Tradução e adaptação cultural automática para recrutamento internacional.
-- [ ] **Dashboard de Recrutador v2**: Análise profunda de KPIs e sentiment analysis de candidaturas.
+- **`JobContext.jsx`** – Gerencia jobs, favoritos, contagem de visualizações e detecção de *hot*.
+- **`ToastContext.jsx`** – Sistema global de mensagens temporárias.
+- **`AIGreeting.jsx`** – Saudações dinâmicas baseadas em Gemini.
+- **Componentes UI** – `JobCard`, `JobCardSkeleton`, `JobDetailSkeleton`, `BottomNav`, `Footer`, etc., todos com **glass‑morphism** e micro‑animações.
 
 ---
 
-## 💻 Stack Tecnológico
+## 📈 Roadmap de Evolução
 
-- **Core**: React 19 + Vite 5 (HMR Safe)
-- **Routing**: React Router v7
-- **Database**: Supabase (PostgreSQL)
-- **AI**: Google Gemini API (`@google/generative-ai`)
-- **Styling**: Vanilla CSS Avançado (Custom Properties, Glassmorphism, GPU Animations)
-- **Icons**: Lucide React
-- **Toast Engine**: Context API + Portals (HMR optimized)
+### ✅ Concluído
+- **v4.0** – Design Tech‑Premium (Glassmorphism)
+- **v4.5** – Busca Inteligente com **interpretação de linguagem natural** (Gemini)
+- **v4.8** – Snappy UX + Layout Ultra‑Wide
+
+### 🚀 Próximas Evoluções
+- **Navegação Geográfica** – Filtros avançados por cidades/estados (SEO + descoberta).
+- **Métricas de Vagas** – Dashboard de visualizações e interações para recrutadores.
+- **Contas Opcionais** – Usuário pode criar conta para histórico persistente, mas não é obrigatório.
+- **Notificações Inteligentes** – Alertas por e‑mail/WhatsApp quando novas vagas correspondem ao perfil.
+- **Otimizador de Vagas (IA)** – Sugestões em tempo real para melhorar descrição, salário e benefícios.
+- **Busca Semântica Avançada** – Melhor interpretação de requisitos e contexto das vagas.
+- **Gerador de Currículos** – Criação automática de CV otimizado para a vaga selecionada.
 
 ---
 
-## 🚀 Como Executar o Projeto
+## 📦 Como Rodar o Projeto Localmente
 
-### 📋 Pré-requisitos
-- **Node.js**: v20.x ou superior
-- **Package Manager**: NPM ou Yarn
+### Requisitos
+Node.js 20+
 
-### 🛠️ Instalação
-1.  **Clonar o repositório**:
-    ```bash
-    git clone https://github.com/lukaslimna1/TrampoFacil.git
-    cd TrampoFacil
-    ```
-2.  **Instalar dependências**:
-    ```bash
-    npm install
-    ```
-
-### ⚙️ Configuração
-Crie um arquivo `.env` na raiz do projeto e preencha as credenciais:
-```env
-VITE_SUPABASE_URL=seu_url_do_supabase
-VITE_SUPABASE_ANON_KEY=sua_chave_anonima
-VITE_GEMINI_API_KEY=sua_chave_do_gemini # Opcional
-```
-
-### 📡 Execução
 ```bash
-# Rodar em modo desenvolvimento
+# 1️⃣ Clonar o repositório
+git clone https://github.com/SEU-USUARIO/trampo-facil.git
+cd trampo-facil
+
+# 2️⃣ Instalar dependências
+npm install
+
+# 3️⃣ Configurar variáveis de ambiente (.env)
+VITE_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
+VITE_SUPABASE_ANON_KEY=YOUR-ANON-KEY
+VITE_GEMINI_API_KEY=YOUR-GEMINI-KEY
+
+# 4️⃣ Iniciar o servidor de desenvolvimento
 npm run dev
-
-# Validar integridade do código (Lint)
-npm run lint
 ```
-Acesse localmente em: `http://localhost:5173`
+
+A aplicação será servida em `http://localhost:5173`.
 
 ---
 
-## 🤝 Contribuição
+## 👀 Preview
 
-Interessado em evoluir o **Trampo Fácil**?
-1. Faça um **Fork** do projeto.
-2. Crie uma **Branch** para sua feature (`git checkout -b feature/nova-funcionalidade`).
-3. Faça o **Commit** das alterações (`git commit -m 'Add: nova funcionalidade'`).
-4. Envie para o repositório (`git push origin feature/nova-funcionalidade`).
-5. Abre um **Pull Request**.
-
----
-
-## 📄 Licença
-
-Este projeto é distribuído sob a **MIT License**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+![Preview do sistema](./preview.png)
 
 ---
 
 <div align="center">
-  <p><b>Trampo Fácil</b> — Simplificando e humanizando o próximo passo da sua carreira.</p>
-  <p>Desenvolvido com 💙 para conectar pessoas.</p>
+  <p><b>Trampo Fácil</b> — Onde a tecnologia simplifica a sua próxima conquista.</p>
+  <p><i>Foco em simplicidade. Paixão por resultados.</i></p>
 </div>
