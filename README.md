@@ -69,7 +69,7 @@ graph TD
     Context --> Detail[JobDetail.jsx]
     Home --> Search[SearchHub.jsx]
     Home --> Stories[StoriesFilter.jsx]
-    Detail --> Apply[Quick Apply (WhatsApp/E‑mail)]
+    Detail --> Apply["Quick Apply (WhatsApp/E-mail)"]
     Publish[PublishJob.jsx] --> Token[Secure Token Generation]
     Edit[EditJob.jsx] --> Token
 ```
