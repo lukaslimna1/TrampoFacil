@@ -17,6 +17,7 @@ export function Header() {
         <Link to="/" className="logo-wrapper">
           <img src="/logo.png" alt="Trampo Fácil" className="logo-image" />
         </Link>
+        
         <nav className="nav-links">
           <Link to="/sobre" className="nav-link hidden-mobile">Sobre</Link>
           <Link to="/" className="nav-link hidden-mobile">Explorar Vagas</Link>

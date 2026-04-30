@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { JobProvider } from './context/JobContext';
 import { Header } from './components/Header';
+import { AIGreeting } from './components/AIGreeting';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { JobDetail } from './pages/JobDetail';
@@ -17,6 +18,11 @@ function App() {
       <Router>
         <div className="page-wrapper">
           <Header />
+          <div className="global-ai-bar">
+            <div className="container">
+              <AIGreeting variant="global" />
+            </div>
+          </div>
           <main className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />

@@ -48,6 +48,11 @@ export function About() {
       title: "IA Assistente de Recrutamento",
       desc: "Identifica potenciais ocultos em candidatos sem o uso de filtros eliminatórios cegos.",
       icon: <Brain size={24} />
+    },
+    {
+      title: "Interface Humana Dinâmica",
+      desc: "Interação personalizada que acompanha o usuário, oferecendo dicas e suporte em tempo real.",
+      icon: <Sparkles size={24} />
     }
   ];
 
@@ -59,10 +64,6 @@ export function About() {
       <section className="about-hero-v4">
         <div className="container hero-flex-v4">
           <div className="hero-text-side-v4 reveal">
-            <div className="hero-status-pill">
-              <span className="live-indicator"></span>
-              <span className="text-glow">TRAMPO IA v3.0 ENGINE ATIVO</span>
-            </div>
             <h1 className="hero-title-v4">
               Recrutamento com <br/>
               <span className="text-gradient-v4">Inteligência Humana.</span>

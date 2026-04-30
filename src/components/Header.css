@@ -1,10 +1,10 @@
 .header {
   height: 80px;
   position: fixed;
-  top: 0;
+  top: 38px; /* Espaço para a Barra de IA */
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 999;
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
@@ -39,6 +39,14 @@
 .logo-wrapper {
   display: flex;
   align-items: center;
+}
+
+.header-ai-context {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 2rem;
 }
 
 .logo-image {
@@ -97,6 +105,7 @@
   .header {
     height: 70px;
     padding: 0 1rem;
+    top: 0; /* No mobile, sem barra de IA, volta pro topo */
   }
   .header.is-scrolled {
     height: 60px;

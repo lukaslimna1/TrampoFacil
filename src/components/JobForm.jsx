@@ -337,10 +337,6 @@ export function JobForm({ initialData, onSubmit, buttonText }) {
          <div className="tech-glow-orb"></div>
          <div className="container hero-content-top">
             <div className="jd-social-greeting-v2">
-               <div className="greeting-badge">
-                  <span className="pulse-dot"></span>
-                  Central do Recrutador 🚀
-               </div>
                <h1 className="hero-title-main">Publique <span className="text-gradient">vagas de alta</span> performance.</h1>
                <p className="hero-subtitle">Use o poder da IA para otimizar sua busca pelos melhores talentos do mercado.</p>
             </div>

@@ -126,6 +126,32 @@ h3 {
   padding: 0 0 2rem 0;
 }
 
+/* Global AI Bar Positioning */
+.global-ai-bar {
+  width: 100%;
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  height: 38px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001; /* Higher than header */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjusting main content to avoid being hidden under fixed elements */
+.page-wrapper {
+  padding-top: 118px; /* 38px AI Bar + 80px Header */
+}
+
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding-top: 70px; /* Apenas Header no mobile */
+  }
+}
+
 /* Global Buttons */
 .btn {
   display: inline-flex;

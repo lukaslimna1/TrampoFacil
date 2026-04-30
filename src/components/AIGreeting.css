@@ -1,0 +1,116 @@
+.ai-greeting-v3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Variant: Global (Announcement Bar Style) */
+.ai-greeting-v3.global {
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Variant: Hero (Larger for Hero Sections) */
+.ai-greeting-v3.hero {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  margin-bottom: 24px;
+  animation: slideDownFade 0.6s ease-out;
+}
+
+.greeting-badge-v3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(var(--primary-rgb, 46, 185, 185), 0.15);
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(var(--primary-rgb, 46, 185, 185), 0.3);
+}
+
+.ai-greeting-v3.global .greeting-badge-v3 {
+  padding: 1px 8px;
+  transform: scale(0.9);
+}
+
+.pulse-dot-v3 {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulse-ai 2s infinite;
+}
+
+.ai-label-v3 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.greeting-content-v3 {
+  display: flex;
+  align-items: center;
+}
+
+.greeting-text-v3 {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.greeting-text-v3.typing {
+  border-right: 2px solid #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing-ai 2s steps(40, end) forwards, blink-ai 0.75s step-end infinite;
+}
+
+/* Animations */
+@keyframes pulse-ai {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes typing-ai {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-ai {
+  from, to { border-color: transparent }
+  50% { border-color: #fff }
+}
+
+@keyframes slideDownFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ai-greeting-v3.global {
+    display: none; /* Hide slim version on mobile to save space, or keep it very minimal */
+  }
+  
+  .greeting-text-v3 {
+    font-size: 0.8rem;
+  }
+}

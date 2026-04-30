@@ -120,6 +120,60 @@ const trampoAI = {
       marketColor: market.color,
       whyApply: whyApply.slice(0, 3)
     };
+  },
+
+  /**
+   * Sistema de Saudações Dinâmicas e Humanizadas
+   */
+  getGreeting: (context = {}) => {
+    const hour = new Date().getHours();
+    const { pathname = '/', isFirstVisitToday = false } = context;
+
+    const morning = hour >= 5 && hour < 12;
+    const afternoon = hour >= 12 && hour < 18;
+    const night = hour >= 18 || hour < 5;
+
+    // 1. Specific Page Contexts (High Priority)
+    if (pathname === '/publicar') {
+      return "Olá, recrutador! Pronto para encontrar o talento ideal hoje? 🚀";
+    }
+    
+    if (pathname === '/sobre') {
+      return "Descubra como estamos revolucionando o recrutamento com tecnologia e humanidade. 💡";
+    }
+    
+    if (pathname === '/sucesso') {
+      return "Parabéns! Sua vaga foi publicada. Que tal aproveitar para revisar suas outras oportunidades? 🎉";
+    }
+
+    // 2. Returning User Experience
+    if (!isFirstVisitToday && Math.random() > 0.4) {
+      const returns = [
+        'Que bom te ver de novo por aqui! 🎉',
+        'De volta à busca? Vamos encontrar algo incrível! 💪',
+        'Foco total! Novas vagas acabaram de chegar. 🔥',
+        'Sentimos sua falta! Próximo passo na carreira? 🚀'
+      ];
+      return returns[Math.floor(Math.random() * returns.length)];
+    }
+
+    // 3. Random Career/Market Tips (30% chance)
+    if (Math.random() > 0.7) {
+      const tips = [
+        '💡 Dica: Vagas com salário visível recebem 40% mais cliques.',
+        '💡 Dica: Manter seu LinkedIn atualizado ajuda no match da IA.',
+        '💡 Dica: Ter um portfólio no GitHub é essencial para vagas Tech.',
+        '💡 Dica: O mercado de Trabalho Remoto cresceu 20% este mês.',
+        '💡 Dica: Personalize sua mensagem ao falar com recrutadores.'
+      ];
+      return tips[Math.floor(Math.random() * tips.length)];
+    }
+
+    // 4. Default Time-Based Greetings
+    if (morning) return 'Bom dia! Café na mão e foco na vaga? ☕';
+    if (afternoon) return 'Boa tarde! Que tal um "up" na carreira hoje? ⚡';
+    if (hour < 5) return 'Madrugando na busca? A vaga dos sonhos não espera! 🦉';
+    return 'Boa noite! Já deu uma olhada nas novidades de hoje? 🌙';
   }
 };
 

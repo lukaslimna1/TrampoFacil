@@ -71,61 +71,6 @@ export function Home() {
     }
   };
 
-  const [greeting, setGreeting] = useState('Carregando... 🌟');
-
-  useEffect(() => {
-    const hour = new Date().getHours();
-    const todayStr = new Date().toDateString();
-    
-    // Fallback in case localStorage throws (e.g., incognito)
-    let lastVisit = '';
-    try {
-      lastVisit = localStorage.getItem('trampo_last_visit') || '';
-    } catch (e) {
-      console.warn("Could not read localStorage", e);
-    }
-    
-    const isFirstTimeToday = lastVisit !== todayStr;
-    
-    if (isFirstTimeToday) {
-      try {
-        localStorage.setItem('trampo_last_visit', todayStr);
-      } catch (e) {}
-    }
-
-    const morningGreetings = [
-      'Bom dia! Pronto para decolar hoje? ☀️',
-      'Bom dia! Café na mão e foco na vaga? ☕',
-      'Acordou cedo? O mercado também! Bom dia! 🚀'
-    ];
-    const afternoonGreetings = [
-      'Boa tarde! Vamos dar um up na carreira? ⚡',
-      'Boa tarde! Qual o próximo passo hoje? 🎯',
-      'Ainda dá tempo de achar a vaga ideal hoje! Boa tarde! 🌟'
-    ];
-    const eveningGreetings = [
-      'Boa noite! Fechando o dia com boas vagas? 🌙',
-      'Boa noite! Relaxa e dá uma olhada no que separamos. ✨',
-      'O mercado nunca dorme. Boa noite! 🦉'
-    ];
-    const returnGreetings = [
-      'Que bom te ver de novo por aqui! 🎉',
-      'De volta à busca! Vamos encontrar essa vaga! 💪',
-      'Foco total! Separamos mais novidades pra você. 🔥'
-    ];
-
-    let options = [];
-    if (!isFirstTimeToday && Math.random() > 0.5) {
-      options = returnGreetings;
-    } else {
-      if (hour < 5) options = ['Madrugando na busca? Tamo junto! 🦉', 'A insônia pode trazer a vaga dos sonhos! 🌙'];
-      else if (hour < 12) options = morningGreetings;
-      else if (hour < 18) options = afternoonGreetings;
-      else options = eveningGreetings;
-    }
-
-    setGreeting(options[Math.floor(Math.random() * options.length)]);
-  }, []);
 
   return (
     <div className="home-container">
@@ -136,11 +81,7 @@ export function Home() {
          
          <div className="container hero-content-top">
             <div className="jd-social-greeting-v2">
-               <div className="greeting-badge">
-                  <span className="pulse-dot"></span>
-                  {greeting}
-               </div>
-               <h1 className="hero-title-main">Vem cá, <span className="text-gradient">sua nova vaga</span> tá te esperando.</h1>
+               <h1 className="hero-title-main">Sua próxima <span className="text-gradient">vaga de alta</span> performance.</h1>
                <p className="hero-subtitle">Chega de currículo no buraco negro. Aqui é direto ao ponto, 100% grátis e sem enrolação.</p>
             </div>
 
