@@ -1,0 +1,158 @@
+.stories-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1.5rem 0 3.5rem 0; /* Mais respiro abaixo */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.stories-container::-webkit-scrollbar {
+  display: none;
+}
+
+.stories-track {
+  display: flex;
+  gap: 32px;
+  padding: 0 1rem;
+  justify-content: center;
+}
+
+.story-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  min-width: 80px;
+}
+
+/* O "Anel" do Story */
+.story-icon-ring {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  z-index: 1;
+}
+
+/* Borda Gradiente Animada (Oculta por padrão, cinza claro) */
+.story-icon-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  z-index: -2;
+  transition: all 0.4s ease;
+}
+
+/* Fundo Interno (Cria o vazado) */
+.story-icon-ring::after {
+  content: '';
+  position: absolute;
+  inset: 3px; /* Espessura do anel */
+  border-radius: 50%;
+  background: white;
+  z-index: -1;
+  transition: all 0.4s ease;
+}
+
+/* O Ícone */
+.story-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+/* Animação de Rotação do Anel */
+@keyframes spin-ring {
+  100% { transform: rotate(360deg); }
+}
+
+/* HOVER STATE */
+.story-bubble:hover .story-icon-ring {
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: 0 20px 40px rgba(46, 185, 185, 0.2);
+}
+
+.story-bubble:hover .story-icon-ring::before {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+  animation: spin-ring 4s linear infinite;
+}
+
+.story-bubble:hover .story-icon {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+/* ACTIVE STATE */
+.story-bubble.active .story-icon-ring {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(46, 185, 185, 0.3);
+}
+
+.story-bubble.active .story-icon-ring::before {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+  animation: spin-ring 4s linear infinite;
+}
+
+.story-bubble.active .story-icon-ring::after {
+  inset: 0px; /* Preenche tudo */
+  background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+}
+
+.story-bubble.active .story-icon {
+  color: white;
+  transform: scale(1.15);
+}
+
+/* HOT STORY (Fogo) */
+.story-bubble.is-hot .story-icon-ring::before {
+  background: linear-gradient(135deg, #f97316 0%, #facc15 100%);
+  animation: spin-ring 4s linear infinite;
+}
+
+.story-bubble.is-hot.active .story-icon-ring::before,
+.story-bubble.is-hot.active .story-icon-ring::after {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+.story-bubble.is-hot.active .story-icon-ring {
+  box-shadow: 0 15px 35px rgba(249, 115, 22, 0.3);
+}
+
+/* TEXTO */
+.story-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #64748b;
+  transition: all 0.3s;
+  letter-spacing: -0.01em;
+}
+
+.story-bubble:hover .story-label {
+  color: var(--primary-color);
+}
+
+.story-bubble.active .story-label {
+  color: #0f172a;
+  transform: scale(1.05);
+}
+
+.story-bubble.is-hot:hover .story-label {
+  color: #f97316;
+}

@@ -1,0 +1,281 @@
+.home-container {
+  padding-bottom: 4rem;
+}
+
+/* HERO ORGANIC TECH V6 - "ALIVE" */
+.jd-home-hero-premium {
+  padding: 5rem 0 6rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3.5rem;
+  position: relative;
+  
+  /* Deep Modern Tech Base */
+  background: #0f172a;
+  
+  /* Irregular Organic Shape */
+  clip-path: ellipse(150% 100% at 50% 0%);
+  margin-top: -80px;
+  padding-top: calc(5rem + 80px);
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+/* DYNAMIC ANIMATED MESH */
+.jd-home-hero-premium::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(46, 185, 185, 0.25) 0%, transparent 60%);
+  filter: blur(80px);
+  animation: float-blob 15s infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+.jd-home-hero-premium::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -5%;
+  width: 60%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 60%);
+  filter: blur(100px);
+  animation: float-blob 20s infinite alternate-reverse;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+@keyframes float-blob {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 10%) scale(1.05); } /* Reduzido o range de movimento para melhor performance */
+  100% { transform: translate(-5%, -5%) scale(0.95); }
+}
+
+.hero-content-top {
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ADDITIONAL TECH PARTICLES */
+.tech-glow-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(46, 185, 185, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  top: 10%;
+  right: 15%;
+  animation: orbit 25s linear infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+.jd-social-greeting-v2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.greeting-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 24px;
+  border-radius: 99px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  margin-bottom: 2rem;
+}
+
+.hero-title-main {
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+  font-weight: 950;
+  color: #ffffff;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-bottom: 2rem;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #2EB9B9 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.35rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* PREMIUM SEARCH BAR - "FLOATING" */
+.search-container-premium {
+  width: 100%;
+  max-width: 1150px;
+  z-index: 20;
+  margin-top: 1rem;
+}
+
+.search-glass-box {
+  background: white;
+  border-radius: 28px;
+  padding: 10px 10px 10px 20px; /* Asymmetric padding to fit the button nicely */
+  display: flex;
+  align-items: center;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.15),
+    0 5px 15px rgba(0, 0, 0, 0.05);
+  gap: 10px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-glass-box:hover, .search-glass-box:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1024px) {
+  .search-glass-box {
+    flex-direction: column;
+    padding: 24px;
+    border-radius: 30px;
+    align-items: stretch;
+  }
+  
+  .search-input-field {
+    width: 100%;
+  }
+  
+  .search-field-divider {
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+  }
+  
+  .btn-search-hero {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.si-icon {
+  color: var(--primary-color);
+  background: #f0fdfa;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.search-input-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  text-align: left;
+  min-width: 0; /* Prevent flex blowout from input */
+}
+
+.si-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+.si-content label {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.si-content input {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  margin-top: 2px;
+  text-overflow: ellipsis;
+}
+
+.search-field-divider {
+  width: 1px;
+  height: 40px;
+  background: #e2e8f0;
+  margin: 0 10px;
+}
+
+.btn-search-hero {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #21A1A1 100%);
+  padding: 1rem 2rem; /* Reduced padding */
+  border-radius: 22px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: 0 10px 20px rgba(46, 185, 185, 0.3);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  flex-shrink: 0; /* Keep button size */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-search-hero:hover {
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: 0 15px 30px rgba(46, 185, 185, 0.4);
+}
+
+/* FEED LAYOUT */
+.home-feed-layout {
+  display: flex;
+  gap: 40px;
+  margin-top: 5rem; /* Mais espaço para o banner orgânico */
+}
+
+.results-count {
+  font-size: 1.1rem;
+  font-weight: 950;
+}

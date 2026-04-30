@@ -1,0 +1,687 @@
+.job-detail-page {
+  padding: 2rem 1rem;
+}
+.job-detail-page.inline-mode {
+  padding: 0;
+  height: 100%;
+}
+
+.back-link-wrapper {
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
+}
+
+.job-detail-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base de Container */
+.job-detail-main {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.job-detail-header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.job-detail-icon-app {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.jd-company-logo-main {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: white;
+  border: 1px solid #F1F5F9;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  padding: 4px;
+}
+
+.job-detail-icon-app > svg {
+  width: 100%;
+  height: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #21A1A1 100%);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(46, 185, 185, 0.2);
+}
+
+.jd-header-badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.jd-badge-vip {
+  background: #FEF9C3;
+  color: #854D0E;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #FDE047;
+}
+
+.jd-badge-urgent {
+  background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.jd-score-display-premium {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 4px 12px 4px 6px;
+  border-radius: 99px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.jd-score-circle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.jd-circular-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.jd-score-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: 850;
+  color: var(--score-color);
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #F1F5F9;
+  stroke-width: 3;
+}
+
+.circle-progress {
+  fill: none;
+  stroke: var(--score-color);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease-in-out;
+}
+
+.jd-score-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.jd-ai-label {
+  font-size: 0.6rem;
+  font-weight: 850;
+  color: #8B5CF6;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.jd-market-label {
+  font-size: 0.75rem;
+  font-weight: 750;
+  color: #475569;
+}
+
+.job-header-text {
+  flex: 1;
+}
+
+.job-title-large {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.job-company-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Ações Primárias e Abas - Layout Inspirado Infojobs */
+.jd-primary-actions-bar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.btn-candidatar-huge {
+  flex: 1;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 850;
+  font-size: 1.15rem;
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 25px rgba(46, 185, 185, 0.25);
+  letter-spacing: 0.02em;
+}
+
+.btn-candidatar-huge:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(46, 185, 185, 0.4);
+}
+
+.btn-icon-circular {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-icon-circular:hover {
+  background: #F8FAFC;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.btn-icon-circular.saved {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  color: #3B82F6;
+}
+
+.jd-tabs-container {
+  display: flex;
+  gap: 32px;
+  border-bottom: 2px solid #F1F5F9;
+  margin-bottom: 32px;
+}
+
+.jd-tab {
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-size: 0.95rem;
+  font-weight: 750;
+  color: #64748B;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jd-tab:hover {
+  color: var(--text-main);
+}
+
+.jd-tab.active {
+  color: var(--primary-color);
+}
+
+.jd-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 3px 3px 0 0;
+}
+
+.jd-quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jd-secondary-actions {
+  display: flex;
+  gap: 12px;
+}
+.jd-secondary-actions .action-fluid {
+  flex: 1;
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+  background: #F8FAFC !important;
+  color: var(--text-main) !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: none !important;
+}
+
+.jd-secondary-actions .action-fluid:hover {
+  background: #F1F5F9 !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Bloco Unificado de Info */
+.jd-main-summary-card {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+/* Novo Design de Pills e Icons em Detalhes */
+.jd-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.jd-hero-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  transition: all 0.3s;
+}
+
+.jd-hero-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 15px rgba(79, 70, 229, 0.08);
+}
+
+.jd-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.jd-hero-item.highlight .jd-item-icon {
+  background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+}
+
+.jd-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.jd-item-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.jd-item-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Diversidade Integrada Premium 2026 */
+.jd-diversity-band-integrated {
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(79, 70, 229, 0.1);
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.jd-diversity-band-integrated::after {
+  content: '✨';
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-size: 80px;
+  opacity: 0.05;
+  transform: rotate(20deg);
+}
+
+.div-title {
+  font-weight: 900;
+  color: var(--text-main);
+  font-size: 1rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Badges section upgrade */
+.job-badges-rich {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .job-badges-rich {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.jc-tag {
+  font-size: 0.85rem;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.2s;
+}
+
+.jc-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.job-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Os "cards" de blocos textuais - Premium Redesign */
+.job-block.block-premium {
+  padding: 2rem;
+  border-radius: 24px;
+  background-color: white;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+  will-change: transform;
+}
+
+.job-block.block-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(46, 185, 185, 0.05);
+  border-color: rgba(46, 185, 185, 0.2);
+}
+
+.block-title-icon {
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.02em;
+}
+
+.block-icon {
+  color: var(--primary-color);
+  background: rgba(46, 185, 185, 0.1);
+  padding: 8px;
+  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+}
+
+.block-text-premium {
+  color: #475569;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* STICKY ACTION BAR - Mágica de Conversão */
+.sticky-action-bar {
+  position: sticky;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9); /* Glassmorphism */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 16px;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  gap: 8px; /* gap reduzido para nao quebrar */
+  z-index: 100;
+  margin: 0 -24px -24px -24px;
+  box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.04);
+}
+
+.action-fluid {
+  flex: 2; /* Whatsapp ganha mais destaque */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.85rem !important;
+  font-size: 1rem !important;
+  border-radius: 12px !important;
+  white-space: nowrap;
+}
+
+.action-fluid-secondary {
+  flex: 1; /* Secundarios menores */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.85rem !important;
+  font-size: 0.9rem !important;
+  border-radius: 12px !important;
+  white-space: nowrap;
+}
+
+.presencial-info-sticky {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #F8FAFC;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  color: var(--text-main);
+  font-weight: 750;
+  font-size: 0.85rem;
+}
+
+.sticky-action-bar.mobile-only {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .sticky-action-bar.mobile-only {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky-action-bar {
+     padding: 10px;
+  }
+  .action-label {
+     display: none; /* Em telas muito pequenas tipo iPhone SE, mostra só o icone dos secundários */
+  }
+  .action-fluid .action-label {
+     display: block; /* Mantem texto no principal (whats) */
+  }
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+  font-weight: 800;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+  background-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
+.btn-mail {
+  background-color: #1E293B;
+  color: white;
+  font-weight: 800;
+  transition: all 0.2s;
+}
+
+.btn-mail:hover {
+  background-color: #0F172A;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
+}
+
+/* Benefits Render */
+.benefits-grid-large {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .benefits-grid-large {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.bf-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.bf-card:hover {
+  transform: scale(1.02);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.08);
+}
+
+.bf-icon {
+  width: 48px;
+  height: 48px;
+  background: #F8FAFC;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.bf-card:hover .bf-icon {
+  background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+  transform: rotate(-10deg);
+}
+
+.bf-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.bf-text {
+  font-weight: 800;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.bf-val {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.benefits-extra {
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-color);
+}

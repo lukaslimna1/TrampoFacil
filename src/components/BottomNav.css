@@ -1,0 +1,63 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 20px; /* flutuante */
+  left: 20px;
+  right: 20px;
+  height: 68px;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 99px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: none;
+  }
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  flex: 1;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.nav-item.active {
+  color: #2563EB;
+}
+
+.nav-item svg {
+  transition: transform 0.2s;
+}
+
+.nav-item.active svg {
+  transform: scale(1.1);
+  fill: rgba(37, 99, 235, 0.1);
+}
+
+/* Novo Botão Central */
+.nav-add {
+  color: #2563EB;
+}
+.nav-add svg {
+  background-color: #EFF6FF;
+  border-radius: 12px;
+  padding: 6px;
+  width: 44px;
+  height: 44px;
+}

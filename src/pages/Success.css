@@ -1,0 +1,119 @@
+.success-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem - 100px); /* header + footer height aprox */
+  padding: 2rem 1rem;
+}
+
+.success-card {
+  background-color: white;
+  border-radius: 32px;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+  border: 1px solid #E2E8F0;
+  position: relative;
+  overflow: hidden;
+  animation: cardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.success-card::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+@keyframes cardEntrance {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.success-icon {
+  color: #10B981;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.2));
+  animation: bouncePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bouncePop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-card h1 {
+  color: var(--text-main);
+  font-size: 1.875rem;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.edit-link-container {
+  background-color: #F8FAFC;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 2px dashed #E2E8F0;
+  transition: all 0.3s;
+}
+
+.edit-link-container:hover {
+  border-color: #6366F1;
+  background-color: #EEF2FF;
+}
+
+.edit-link-title {
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+}
+
+.edit-link-box {
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  word-break: break-all;
+}
+
+.edit-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.edit-link:hover {
+  text-decoration: underline;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.success-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
