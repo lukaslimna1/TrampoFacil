@@ -40,7 +40,7 @@ export function JobDetail({ inlineJobId }) {
   const params = useParams();
   const id = inlineJobId || params.id;
   const isInline = !!inlineJobId;
-  const { getJobById, isLoading, isJobSaved, toggleSavedJob, incrementJobViews } = useJobs();
+  const { getJobById, isLoading, isJobSaved, toggleSavedJob, incrementJobViews, isJobHot, isUrgencyActive } = useJobs();
   // Deriva a vaga baseada no ID (evita cascata de re-renders)
   const job = useMemo(() => getJobById(id), [getJobById, id]);
   
@@ -62,7 +62,9 @@ export function JobDetail({ inlineJobId }) {
   const jobScore = aiAnalysis.total;
   const salaryEval = aiAnalysis.salaryEval;
 
-  const isSaved = isJobSaved ? isJobSaved(job.id) : false;
+  const isSaved = isJobSaved ? isJobSaved(job?.id) : false;
+  const isHot = job ? isJobHot(job) : false;
+  const isUrgentActive = job ? isUrgencyActive(job) : false;
 
   const handleShare = () => {
     const shareUrl = `${window.location.origin}/vaga/${job.id}`;
@@ -153,8 +155,12 @@ export function JobDetail({ inlineJobId }) {
             </div>
             <div className="job-header-text">
               <div className="jd-header-badges">
-                {job.is_featured && <span className="jd-badge-vip"><Star size={12} fill="currentColor" /> Premium</span>}
-                {job.is_urgent && <span className="jd-badge-urgent"><Flame size={12} /> Urgente</span>}
+                {job.is_featured && <span className="jd-badge-vip"><Star size={12} fill="currentColor" /> Destaque Premium</span>}
+                {isHot && (
+                  <span className={`jd-badge-urgent ${isUrgentActive ? 'is-manual-urgent' : ''}`}>
+                    <Flame size={12} /> {isUrgentActive ? 'Vaga Urgente' : 'Em Alta'}
+                  </span>
+                )}
                 <div className="jd-score-display-premium" style={{'--score-color': salaryEval.color}}>
                   <div className="jd-score-circle">
                     <svg viewBox="0 0 36 36" className="jd-circular-chart">

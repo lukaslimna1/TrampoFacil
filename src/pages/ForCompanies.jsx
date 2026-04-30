@@ -189,7 +189,7 @@ export default function ForCompanies() {
           <div className="fc-pricing-grid">
             <div className="fc-price-card">
               <div className="fc-price-badge-urgent">
-                <Flame size={14} /> <span>HOT</span>
+                <Flame size={14} /> <span>VAGA URGENTE</span>
               </div>
               <h3 className="fc-plan-title">Vaga Urgente</h3>
               <p className="fc-plan-desc">Para quem precisa contratar rápido</p>
@@ -205,7 +205,7 @@ export default function ForCompanies() {
 
             <div className="fc-price-card featured">
               <div className="fc-price-badge-premium">
-                <Gem size={14} /> <span>PREMIUM</span>
+                <Gem size={14} /> <span>DESTAQUE PREMIUM</span>
               </div>
               <h3 className="fc-plan-title text-white">Destaque Premium</h3>
               <p className="fc-plan-desc text-white">Máxima visibilidade na plataforma</p>

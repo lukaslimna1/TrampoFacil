@@ -125,6 +125,17 @@
   gap: 4px;
 }
 
+.jd-badge-urgent.is-manual-urgent {
+  animation: pulseUrgentDetail 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+}
+
+@keyframes pulseUrgentDetail {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
 .jd-score-display-premium {
   display: flex;
   align-items: center;
