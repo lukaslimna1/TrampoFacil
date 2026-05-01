@@ -1,4 +1,4 @@
-# 🚀 Trampo Fácil — A Nova Era da Conexão com o Trabalho
+# 🚀 Trampo Fácil — Descoberta Inteligente de Oportunidades
 
 <div align="center">
   <img src="https://img.shields.io/badge/Versão-5.2%20Stable-gold?style=for-the-badge&logo=react" alt="Versão Stable" />
@@ -6,96 +6,121 @@
   <img src="https://img.shields.io/badge/IA‑Gemini%201.5%20Flash-blue?style=for-the-badge&logo=google-gemini" alt="IA Gemini" />
   <img src="https://img.shields.io/badge/Checkout‑Stripe-635BFF?style=for-the-badge&logo=stripe" alt="Stripe Integration" />
   <br /><br />
-  <h2>Comece em segundos. Decida mais rápido. Contrate melhor.</h2>
-  <p>Uma plataforma <b>ZAX (Zero-Account Experience)</b> orientada por <b>Session Intelligence</b>.</p>
+  <h3>Comece em segundos. Decida mais rápido. Contrate melhor.</h3>
+  <p>Uma nova forma de conectar pessoas ao trabalho através de <b>ZAX</b> e <b>Session Intelligence</b>.</p>
 </div>
 
 ---
 
-## 📜 O Manifesto: Por que existimos?
+## 📜 Manifesto & Posicionamento
 
-O **Trampo Fácil** desafia a burocracia dos portais de emprego tradicionais. Acreditamos que a busca por talento não deve ser um processo administrativo lento, mas uma conexão tecnológica fluida. 
+O **Trampo Fácil** não é apenas uma plataforma de vagas; é um ecossistema de conexão direta. 
 
-Não somos apenas um site de vagas; somos uma **nova arquitetura de mercado** onde a tecnologia remove todas as barreiras entre a empresa e o profissional.
-
----
-
-## ⚡ ZAX: Zero-Account Experience
-Criamos o conceito **ZAX** para redefinir a privacidade e a agilidade no recrutamento. 
-- **Sem Cadastro:** Candidatos e empresas interagem sem formulários de login exaustivos.
-- **Link-Token Security:** A gestão das vagas é feita via links inteligentes e tokens privados (`UUID + Timestamp`), garantindo que apenas o dono da vaga tenha controle, com zero atrito de senha.
-- **Privacidade Radical:** Nenhum dado sensível é armazenado desnecessariamente, protegendo a identidade de ambos os lados.
+Desafiamos a burocracia do RH tradicional substituindo processos lentos por tecnologia de ponta. Nossa missão é clara: **eliminar o ruído entre o talento e a empresa**, garantindo que a tecnologia trabalhe para as pessoas, e não o contrário.
 
 ---
 
-## 🧠 Session Intelligence (Inteligência em Evolução)
-O Trampo Fácil combina uma base sólida de navegação com camadas de inteligência que evoluem continuamente:
-- **Real-Time Performance Engine:** Análise instantânea de anúncios via Gemini 1.5 Flash, garantindo que cada vaga publicada atinja seu potencial máximo de conversão.
-- **Contextual UX:** A plataforma "sente" a navegação do usuário, adaptando feedbacks e saudações conforme o comportamento da sessão.
-- **Visão Futura de Matching:** Estamos evoluindo para um sistema onde o algoritmo recomenda talentos de forma proativa, baseando-se no comportamento e score de afinidade, sem intervenções manuais lentas.
+## 🛡️ Pilares Tecnológicos (Proprietary Concepts)
+
+### 1. Zero-Account Experience (ZAX)
+Diferente de tudo o que existe, o Trampo Fácil utiliza a arquitetura **ZAX**.
+*   **Acesso Instantâneo:** Sem formulários de login, sem senhas esquecidas.
+*   **Link-Token Management:** Recrutadores gerenciam suas vagas através de chaves únicas de sessão, garantindo 100% de privacidade com 0% de atrito.
+
+### 2. Session Intelligence
+A plataforma combina uma base sólida de navegação com camadas de inteligência que evoluem conforme o uso.
+*   **Trampo IA (Engine):** Análise preditiva de anúncios e feedback em tempo real.
+*   **Contextual Awareness:** O sistema reconhece o comportamento do usuário e adapta a interface para maximizar a conversão de candidaturas.
+
+### 3. Design Tech Premium (Social-Feel)
+Inspirado nas redes sociais mais modernas, o design foca em **micro-interações**, **Glassmorphism** e uma hierarquia visual que prioriza o que importa: a oportunidade.
 
 ---
 
-## 💎 Monetização: Boost de Visibilidade
-Nossa integração com o **Stripe** não é apenas técnica; é uma ferramenta de aceleração para empresas:
-*   **Aceleração Premium (Gem):** Destaque visual VIP que posiciona a vaga no radar dos melhores talentos.
-*   **Urgência Máxima (Golden Flame):** Sinalização visual de alta prioridade para fechamento imediato de posições críticas.
-*   **Checkout Operacional:** Pagamentos processados em segundos para garantir que o seu anúncio comece a performar instantaneamente.
+## 🛠️ Stack Técnica: O "O quê", "Porquê" e "Quando"
+
+| Tecnologia | Função | Justificativa Técnica | Introduzido em |
+|---|---|---|---|
+| **React 19** | Core UI | Estabilidade via Concurrent Mode e suporte nativo a transições "snappy". | v0 |
+| **Vite** | Build Tool | HMR instantâneo para um ciclo de desenvolvimento de alta velocidade. | v0 |
+| **Supabase** | Realtime Backend | Persistência via Postgres com camadas de **Websockets** para atualizações vivas. | v0 |
+| **Gemini 1.5 Flash** | Core AI | O equilíbrio ideal entre latência ultra-baixa e precisão na análise de dados. | v2 |
+| **Stripe SDK** | Monetização | Infraestrutura global para **Boost de Visibilidade** e pagamentos seguros. | v5 |
+
+---
+
+## 🧠 Inteligência em Evolução: Por que nosso motor é disruptivo?
+
+O **Trampo IA** atua como um consultor estratégico invisível:
+*   **Recruiter Scoring:** Avalia instantaneamente a atratividade da vaga (0-100), sugerindo correções que aumentam em até 3x a conversão.
+*   **Match de Mercado:** Insights baseados em tendências reais de contratação, ajudando empresas a decidirem mais rápido.
+*   **JSON-First Logic:** A IA comunica-se com o frontend através de dados estruturados, permitindo componentes de feedback dinâmicos e precisos.
+
+---
+
+## 💳 Boost de Visibilidade (Monetização Estratégica)
+
+Empresas podem acelerar seus processos através de destaques inteligentes integrados ao **Stripe**:
+*   **Destaque Premium (Gema):** Máximo alcance no feed principal e fixação estratégica.
+*   **Vaga Urgente (Fogo Dourado):** Sinalização visual de prioridade para atrair talentos prontos para começar.
+*   **Checkout Dinâmico:** Experiência de pagamento sem fricção, permitindo que a vaga ganhe tração em segundos.
 
 ---
 
 ## 🔮 Visão de Futuro
-> "O Trampo Fácil evolui para um ecossistema inteligente de matching em tempo real, onde oportunidades encontram talentos automaticamente — sem fricção, sem intermediários e sem processos burocráticos."
+
+O **Trampo Fácil** evolui para um sistema inteligente de **matching proativo**, onde as oportunidades encontram os talentos automaticamente — sem intermediários, sem burocracia e com o máximo de precisão tecnológica. Estamos construindo a próxima geração do recrutamento digital.
 
 ---
 
-## 🛠️ Stack Técnica Detalhada
+## 📦 Como Rodar o Projeto
 
-| Tecnologia | Função | Justificativa Estratégica |
-|---|---|---|
-| **React 19** | Core UI | Estabilidade absoluta no Concurrent Mode para uma experiência "App-Like". |
-| **Supabase** | Realtime Backend | Persistência robusta com sincronização via WebSockets para atualizações sem refresh. |
-| **Gemini 1.5 Flash** | Session AI | Otimização de anúncios com latência próxima de zero, essencial para feedback em tempo real. |
-| **Stripe** | Infra de Valor | Garantia de transações seguras e liberação imediata de recursos de visibilidade. |
+1.  **Preparação:**
+    ```bash
+    git clone https://github.com/lukaslimna1/TrampoFacil.git
+    npm install
+    ```
+2.  **Variáveis de Ambiente (.env):**
+    ```env
+    VITE_SUPABASE_URL=...
+    VITE_SUPABASE_ANON_KEY=...
+    VITE_STRIPE_PUBLIC_KEY=...
+    VITE_GEMINI_API_KEY=...
+    ```
+3.  **Execução:**
+    ```bash
+    npm run dev
+    ```
 
 ---
 
 ## ⏳ Histórico de Evolução (Updates)
 
 ### 🌱 v0 (A Gênese)
-Definição do Core Stack e validação do modelo Accountless. O nascimento da "Semente".
+- Fundação do Stack (React + Vite + Supabase) e filosofia Accountless.
 
-### 🏗️ v1 (Estrutura ZAX)
-Lançamento da busca em tempo real e do sistema proprietário de Tokens de Edição.
+### 🏗️ v1 (Base Estrutural)
+- Lançamento do sistema de **Tokens de Edição** e busca em tempo real.
 
-### 🧠 v2 (Era da Inteligência)
-Integração com **Google Gemini** e lançamento do motor de Recruiter Insights.
+### 🧠 v2 (O Salto da Inteligência)
+- Integração oficial com **Google Gemini 1.5 Flash** e lançamento do Score de Performance.
 
-### 💎 v3 (Redesign Tech Premium)
-Adoção do estilo **Glassmorphism** e criação do **Command Hub** unificado.
+### 💎 v3 (Redesign Premium)
+- Adoção da estética **Glassmorphism** e lançamento do **Command Hub**.
 
-### 🛡️ v4 (Compliance & Scale)
-Modularização jurídica (Security/Privacy/Terms) e lançamento do FAQ Interativo.
+### 🛡️ v4 (Escala e Transparência)
+- Central jurídica modular e FAQ dinâmico com sistema de busca inteligente.
 
-### 💳 v5 (Enterprise & Stripe)
-- **v5.0:** Landing Page corporativa.
-- **v5.1:** Filtros "Em Alta" (Stories style).
-- **v5.2 (Atual):** **Integração Real Stripe**, nova iconografia **Premium Gem** e **Golden Flame**.
-
----
-
-## 📦 Rodagem Local
-
-```bash
-git clone https://github.com/lukaslimna1/TrampoFacil.git
-npm install
-npm run dev
-```
+### 💳 v5 (Enterprise & Monetização)
+- **v5.0:** Landing Page `/empresas`.
+- **v5.1:** Filtros "Em Alta" e tags de urgência.
+- **v5.2 (Atual):** **Integração Real Stripe**, iconografia de Gema Premium e Fogo Dourado, e **Payment Modal v2** (React Portals).
 
 ---
 
 <div align="center">
-  <p><b>Trampo Fácil</b> — Onde a tecnologia simplifica a sua próxima conquista.</p>
+  <p><b>Trampo Fácil</b> — Tecnologia que simplifica, IA que impulsiona.</p>
+  <p><i>Feito com paixão pela comunidade de tecnologia.</i></p>
   <img src="https://img.shields.io/badge/Built%20with-Passion-red?style=flat-square" alt="Built with Passion" />
 </div>
 
