@@ -27,7 +27,7 @@
         </ul>
       </td>
       <td width="50%">
-        <img src="C:\Users\lucas\.gemini\antigravity\brain\dbb8c0ab-6217-416b-84db-36648134ef82\trampo_ia_real_ui_mockup_1777616124269.png" alt="Trampo IA Real UI" />
+        <img src="./public/Trampo%20Ai.png" alt="Trampo IA Real UI" />
       </td>
     </tr>
   </table>
