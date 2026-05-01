@@ -19,15 +19,15 @@
     <tr>
       <td width="50%">
         <h3>Score de Performance Realtime</h3>
-        <p>Nosso motor não apenas lista, ele <b>otimiza</b>. Ao identificar um Score Global baixo (ex: 30/100), a IA intervém com:</p>
+        <p>Inspirado na simplicidade do <b>Google Labs</b>, nosso motor não apenas lista, ele <b>guia</b>. Ao identificar um Score Global baixo (ex: 30/100), a IA intervém com:</p>
         <ul>
-          <li>✅ <b>Análise de Mercado:</b> Benchmark de salários e benefícios.</li>
-          <li>✅ <b>Checklist de Impacto:</b> Sugestões críticas para aumentar o alcance em até 40%.</li>
-          <li>✅ <b>IA Assistente:</b> Dicas dinâmicas para atrair talentos mais qualificados.</li>
+          <li>✨ <b>Trampo AI Ativa:</b> Otimização inteligente em tempo real.</li>
+          <li>⚠️ <b>Diagnóstico Imediato:</b> Alertas sobre ajustes urgentes.</li>
+          <li>🚀 <b>Checklist de Impacto:</b> Passos claros para maximizar o alcance.</li>
         </ul>
       </td>
       <td width="50%">
-        <img src="C:\Users\lucas\.gemini\antigravity\brain\dbb8c0ab-6217-416b-84db-36648134ef82\trampo_ia_mockup_1777615728930.png" alt="Trampo IA Mockup" />
+        <img src="C:\Users\lucas\.gemini\antigravity\brain\dbb8c0ab-6217-416b-84db-36648134ef82\trampo_ia_real_ui_mockup_1777616124269.png" alt="Trampo IA Real UI" />
       </td>
     </tr>
   </table>
