@@ -6,119 +6,119 @@
   <img src="https://img.shields.io/badge/IA‑Gemini%201.5%20Flash-blue?style=for-the-badge&logo=google-gemini" alt="IA Gemini" />
   <img src="https://img.shields.io/badge/Checkout‑Stripe-635BFF?style=for-the-badge&logo=stripe" alt="Stripe Integration" />
   <br /><br />
-  <h3>Encontre ou publique uma vaga em segundos — sem cadastro, sem burocracia.</h3>
-  <p>Velocidade, simplicidade e inteligência aplicadas ao mundo real do trabalho.</p>
+  <h3>A ponte tecnológica definitiva entre talentos e empresas.</h3>
+  <p>Uma plataforma <b>Accountless</b>, <b>AI-First</b> e com design <b>High-End</b>.</p>
 </div>
 
 ---
 
-## ⚡ Sistema Sem Cadastro (Accountless)
+## 📜 Manifesto & Filosofia de Produto
 
-O maior diferencial do Trampo Fácil é eliminar a necessidade de contas e senhas.
+O **Trampo Fácil** nasceu para desafiar o status quo dos portais de emprego. 
 
-| Usuário | Como funciona |
-|---|---|
-| **Empresas** | Publicam vagas através do formulário *PublishJob*. Cada vaga recebe um **token exclusivo** que gera um link seguro (`/vaga/:id?token=…`). Esse link permite editar ou remover a vaga sem login. |
-| **Candidatos** | Acessam imediatamente todas as funcionalidades (busca, filtros, aplicação) sem precisar criar conta. |
-| **Privacidade** | Nenhum dado de login é armazenado; apenas o token da vaga é mantido no banco. |
+A maioria das plataformas hoje falha em dois pontos críticos: **atrito de entrada** (cadastros longos) e **baixa qualidade de informação** (vagas mal escritas). Nossa filosofia resolve ambos:
+- **Zero Friction:** O sistema é 100% accountless. Você não cria uma conta; você cria uma conexão.
+- **AI-Enhanced Quality:** O motor de IA não é um enfeite; ele é um filtro de qualidade que eleva o nível dos anúncios na plataforma.
 
 ---
 
-## 💎 Identidade Visual Premium (v5.2)
+## 🛠️ Stack Técnica Detalhada: O "O quê", "Porquê" e "Quando"
 
-A v5.2 introduz um refinamento completo na marca e na experiência de monetização:
-
-*   **Destaque Premium (Gem)**: O ícone de diamante foi substituído pela **Gema Detalhada**, transmitindo uma percepção de valor superior para vagas VIP.
-*   **Vaga Urgente (Golden Flame)**: Implementação do **Fogo Dourado**, unificando a paleta de cores dos produtos pagos em tons de ouro e âmbar (`#F59E0B`).
-*   **Payment Modal v2**: Novo modal de pagamento interativo utilizando `React Portal`, garantindo que o checkout esteja sempre acima de qualquer elemento da UI, com design de vidro e feedback em tempo real.
-
----
-
-## 💳 Integração com Stripe
-
-O motor de monetização está agora 100% operacional com o Stripe:
-
-*   **Checkout Dinâmico**: Geração automática de sessões de pagamento conforme o plano escolhido (Urgente, Premium ou Combo).
-*   **Planos Cumulativos**: Lógica inteligente de soma de valores para contratação de múltiplos destaques simultaneamente.
-*   **Segurança**: Processamento seguro via Stripe API, com redirecionamento automático e confirmação de status.
+| Tecnologia | Função | Justificativa Técnica (O Porquê) | Introduzido em |
+|---|---|---|---|
+| **React 19** | Core UI Library | Escolhido pela estabilidade do Concurrent Mode e suporte nativo a transições, permitindo uma interface "snappy" que nunca bloqueia a thread principal. | v0 |
+| **Vite** | Build Tool | Substituiu o antigo CRA (Create React App) para garantir Hot Module Replacement (HMR) instantâneo e tempos de build otimizados para deploy contínuo. | v0 |
+| **Supabase** | Backend & DB | Utilizamos o Postgres por sua robustez relacional. O Supabase foi escolhido pela camada de **Realtime (Websockets)**, que permite atualizar o feed de vagas sem refresh. | v0 |
+| **Google Gemini 1.5 Flash** | Engine de IA | Selecionado em detrimento de modelos maiores pelo equilíbrio perfeito entre **latência baixa** (essencial para feedback em tempo real) e **janela de contexto**, permitindo analisar anúncios inteiros em milissegundos. | v2 |
+| **Stripe SDK** | Pagamentos | Implementado para garantir segurança PCI-DSS e permitir planos de destaque (Premium/Urgente) com redirecionamento automático e webhooks de confirmação. | v5 |
+| **Lucide-React** | Design System | Padronização de ícones vetoriais leves que facilitam a manutenção e garantem a estética "Tech Premium" (Glassmorphism). | v3 |
 
 ---
 
-## 🛡️ Central de Transparência & Compliance
+## 🧠 O Motor Trampo IA: Por que ele é superior?
 
-A partir da v4.9, introduzimos uma arquitetura modular de conformidade e segurança:
+Nosso motor de IA não é apenas um wrapper de chat. Ele é integrado profundamente ao `JobForm` e ao `SearchHub`:
 
-*   **Arquitetura Modular**: Documentação jurídica dividida em módulos (`Security`, `Privacy`, `Terms`, `FAQ`) para fácil manutenção.
-*   **FAQ Interativo**: Sistema de respostas expansíveis (Accordion) inspirado em plataformas premium.
-*   **Contato Inteligente**: Suporte otimizado com perfis de atendimento (Denúncia de Vagas, LGPD, Parcerias).
-
----
-
-## 🧠 Inteligência Trampo IA
-
-O motor `Trampo IA` (Gemini 1.5 Flash) foi sincronizado em toda a plataforma:
-
-| Feature | O que entrega ao usuário |
-|---|---|
-| **Saudações Contextuais** | Mensagens inteligentes que mudam conforme a página (Contato, Legal, Home, Empresas) e detectam o contexto da navegação. |
-| **Score de Performance** | Avaliação 0-100 baseada em clareza, benefícios e inclusão, impulsionando vagas de alta qualidade. |
-| **Recruiter Insights** | Feedback em tempo real durante a criação da vaga para maximizar a atratividade. |
+1.  **Análise de Performance Multidimensional:** Ele não apenas corrige erros gramaticais; ele avalia o anúncio com base em **atratividade de benefícios**, **clareza de requisitos** e **indicadores de diversidade**.
+2.  **Feedback em Tempo Real (Debounced):** Integrado via hooks customizados que analisam os dados enquanto o recrutador digita, fornecendo um "Score de Performance" instantâneo.
+3.  **Contextualização Dinâmica:** O motor reconhece em qual página o usuário está (ex: FAQ, Contato, Publicação) e ajusta as saudações e sugestões via IA para maximizar a conversão.
+4.  **Processamento Estruturado:** Diferente de IAs genéricas, o Trampo IA retorna dados em **JSON estruturado**, o que nos permite renderizar componentes visuais (como checklists de otimização) baseados na resposta da IA.
 
 ---
 
-## 📊 Painel Técnico (Stack 2026)
+## 🛡️ Segurança de Dados: O Modelo Accountless
 
-| Característica | Detalhe | Impacto no Produto |
-|---|---|---|
-| **Arquitetura** | React 19 + Context API | Interface que nunca trava e estado sincronizado. |
-| **Layout Expansivo** | Grid Ultra-Wide + Home 40/60 Split | Aproveitamento total de espaço para feed e preview simultâneos. |
-| **Portals** | React DOM createPortal | Modais de pagamento que escapam do contexto de stacking para 100% de visibilidade. |
-| **Branding Unificado** | Lucide-React v0.400+ | Ícones padronizados (Gem/Flame) em toda a jornada do usuário. |
+Como protegemos as empresas sem exigir senha? 
+- **Token-Based Auth:** Cada vaga possui um `token_edicao` (UUID + Timestamp).
+- **Transient Management:** O recrutador recebe um link administrativo único. A segurança reside no sigilo desse link, eliminando a vulnerabilidade de senhas fracas ou bancos de dados de credenciais vazados.
+- **Local Persistence:** Para candidatos, os favoritos são salvos via `LocalStorage`, mantendo a privacidade total sem rastreamento no servidor.
 
 ---
 
-## 🏗️ Estrutura do Projeto
+## 📦 Como Rodar o Projeto
 
-```mermaid
-graph TD
-    App[App.jsx] --> Context[JobContext.jsx]
-    App --> ForCompanies[ForCompanies.jsx]
-    App --> Stripe[Stripe Service]
-    Home[Home.jsx] --> Search[SearchHub.jsx]
-    Home --> Cards[JobCard v2 - Urgente/Premium]
-    Form[JobForm.jsx] --> Modal[PaymentModal.jsx Portal]
-```
-
----
-
-## 📈 Roadmap de Evolução
-
-### ✅ Concluído
-- **v5.0** – Landing Page para Empresas + Sincronização de Terminologia.
-- **v5.1** – Filtro Em Alta (Stories) unificando Urgência e Destaques.
-- **v5.2** – **Integração Real Stripe** + Branding Otimizado (Gem/Golden Flame) + Payment Modal v2.
-
-### 🚀 Próximas Evoluções
-- **Dashboard de Métricas** – Visualização de cliques e alcances para recrutadores.
-- **Navegação Geográfica** – Filtros avançados por cidades/estados (SEO Local).
-- **Match Inteligente v2** – Recomendação proativa de candidatos baseada no Score IA.
+1.  **Preparação:**
+    ```bash
+    git clone https://github.com/lukaslimna1/TrampoFacil.git
+    npm install
+    ```
+2.  **Variáveis de Ambiente (.env):**
+    ```env
+    VITE_SUPABASE_URL=seu_projeto_supabase
+    VITE_SUPABASE_ANON_KEY=sua_chave_anonima
+    VITE_STRIPE_PUBLIC_KEY=sua_chave_stripe
+    VITE_GEMINI_API_KEY=sua_chave_google_ai
+    ```
+3.  **Execução:**
+    ```bash
+    npm run dev
+    ```
 
 ---
 
-## 📦 Como Rodar o Projeto Localmente
+## ⏳ Histórico de Versões e Atualizações (Changelog)
 
-```bash
-# 1️⃣ Instalar e Iniciar
-git clone https://github.com/SEU-USUARIO/trampo-facil.git
-cd trampo-facil
-npm install
-npm run dev
-```
+Abaixo, registramos toda a jornada do Trampo Fácil, desde o primeiro commit até o estado de arte atual:
+
+### 🌱 v0 (A Gênese) - Fevereiro/2026
+- Definição do Core Stack (React + Vite + Supabase).
+- Implementação do banco de dados inicial no Postgres.
+- Criação da filosofia "Sem Login" e estrutura básica de rotas.
+
+### 🏗️ v1 (Base Estrutural)
+- Lançamento do sistema de **Tokens de Edição**.
+- Implementação da busca por palavras-chave e filtros de localidade.
+- Primeira versão do JobCard e JobDetail.
+
+### 🧠 v2 (O Salto da Inteligência)
+- **Marco:** Integração com **Google Gemini 1.5 Flash**.
+- Lançamento do motor de análise de vagas (Recruiter Insights).
+- Criação do Score de Performance dinâmico.
+
+### 💎 v3 (Redesign Premium)
+- Adoção da estética **Glassmorphism** em toda a plataforma.
+- Lançamento do **Command Hub** unificado.
+- Refatoração para React 19 e melhoria de performance no render.
+
+### 🛡️ v4 (Escala e Transparência)
+- Criação da central jurídica: Security, Privacy e Terms.
+- Lançamento da página **Sobre Nós** com manifesto de marca.
+- Módulo de FAQ dinâmico com sistema de busca inteligente.
+
+### 💳 v5 (Monetização Enterprise)
+- **v5.0:** Landing Page dedicada `/empresas` para venda de serviços.
+- **v5.1:** Implementação de filtros "Em Alta" e tags de urgência.
+- **v5.2 (Atual):** **Integração Completa Stripe**.
+  - Checkout operacional e planos cumulativos.
+  - Substituição da iconografia antiga pela **Gema Premium** e **Fogo Dourado**.
+  - Novo **Payment Modal v2** utilizando React Portals para UI superior.
 
 ---
 
 <div align="center">
-  <p><b>Trampo Fácil</b> — Onde a tecnologia simplifica a sua próxima conquista.</p>
-  <p><i>Foco em simplicidade. Paixão por resultados.</i></p>
+  <p><b>Trampo Fácil</b> — Tecnologia que simplifica a sua próxima conquista.</p>
+  <p><i>Focado em performance. Apaixonado por resultados.</i></p>
+  <img src="https://img.shields.io/badge/Built%20with-Passion-red?style=flat-square" alt="Built with Passion" />
 </div>
+
 
