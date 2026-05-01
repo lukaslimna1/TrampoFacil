@@ -27,18 +27,19 @@ export function JobProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   // 1. Carregar vagas do Supabase
-  const fetchJobs = useCallback(async () => {
+  const fetchJobs = useCallback(async (silent = false) => {
     try {
-      setIsLoading(true);
+      if (!silent) setIsLoading(true);
       const { data, error } = await supabase
         .from('jobs')
         .select('*')
+        .eq('is_active', true)
         .order('criado_em', { ascending: false });
 
       if (error) throw error;
       
       const now = new Date();
-      // Filtrar expiradas (opcional se o backend não filtrar)
+      // Filtrar expiradas
       const validJobs = data.filter(job => !job.expira_em || new Date(job.expira_em) > now);
       setJobs(validJobs);
     } catch (error) {
@@ -48,12 +49,34 @@ export function JobProvider({ children }) {
     }
   }, []);
 
-  // 2. Carregar vagas salvas do LocalStorage
+  // 2. Carregar vagas e configurar Realtime
   useEffect(() => {
     const initData = async () => {
       await fetchJobs();
     };
     initData();
+
+    // CONFIGURAÇÃO REALTIME: Escuta mudanças no banco e atualiza o site na hora
+    const channel = supabase
+      .channel('jobs_realtime_changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'jobs' },
+        (payload) => {
+          console.log("%c MÁGICA: Vaga atualizada no banco! Evento:", "color: #00ff00; font-weight: bold", payload.eventType);
+          // Atualiza em segundo plano (silent=true) para não piscar a tela do usuário
+          fetchJobs(true);
+        }
+      )
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          console.log("Canal Realtime conectado e ouvindo!");
+        }
+      });
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [fetchJobs]);
 
   const addJob = async (jobData) => {
@@ -173,6 +196,39 @@ export function JobProvider({ children }) {
     }
   };
 
+  // Busca uma vaga específica diretamente no banco (usado para detalhes e visualização pré-pagamento)
+  const fetchJobById = async (id) => {
+    try {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error("Erro ao buscar vaga individual:", error);
+      return null;
+    }
+  };
+
+  // Busca uma vaga pelo token de edição diretamente no banco
+  const fetchJobByToken = async (token) => {
+    try {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('token_edicao', token)
+        .single();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error("Erro ao buscar vaga por token:", error);
+      return null;
+    }
+  };
+
   const getJobById = (id) => jobs.find(job => job.id === id);
   const getJobByToken = (token) => jobs.find(job => job.token_edicao === token);
 
@@ -219,6 +275,8 @@ export function JobProvider({ children }) {
       deleteJob,
       getJobsByEmail,
       getJobById,
+      fetchJobById,
+      fetchJobByToken,
       getJobByToken,
       toggleSavedJob,
       isJobSaved,

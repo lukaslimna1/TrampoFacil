@@ -11,7 +11,7 @@ import { useJobs } from '../context/JobContext';
 import { formatDistance } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { 
-  Zap, Bookmark, Eye, Flame, Banknote, Briefcase, MapPin, Clock, Star, 
+  Zap, Bookmark, Eye, Flame, Banknote, Briefcase, MapPin, Clock, Gem, 
   Users, BarChart, Utensils, Laptop, TrendingUp, HeartPulse, GraduationCap, 
   Gift, ShieldCheck, Sparkles
 } from 'lucide-react';
@@ -116,7 +116,7 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
               {job.empresa || 'Empresa Confidencial'}
               {isFeatured && (
                 <span className="jc-badge-vip-text">
-                  <Star size={12} fill="currentColor" /> Destaque Premium
+                  <Gem size={12} fill="#F59E0B" color="#F59E0B" /> Destaque Premium
                 </span>
               )}
            </div>
@@ -130,14 +130,14 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
 
       {/* Post Content: Título e Tags inline */}
       <div className="jc-post-content">
-         <h3 className="jc-title">
-           {job.titulo}
-            {isHot && (
-              <span className={`badge-hot-inline ${isUrgentActive ? 'is-manual-urgent' : ''}`}>
-                <Flame size={12} /> {isUrgentActive ? 'Vaga Urgente' : 'Em Alta'}
+          <h3 className="jc-title">
+            {job.titulo}
+            {isUrgentActive && (
+              <span className="badge-hot-inline is-manual-urgent">
+                <Flame size={12} fill="#F59E0B" color="#F59E0B" /> Vaga Urgente
               </span>
             )}
-         </h3>
+          </h3>
       </div>
 
       {/* Linha 3: Pills Estilizadas (Master Info) */}
@@ -215,10 +215,10 @@ export function JobCard({ job, isClickable = true, isSelected = false, onClick }
           <div className="jc-score-display">
              <div className="score-circle-premium" style={{"--score-percent": jobScore, "--score-color": jobScore > 80 ? '#10B981' : jobScore > 60 ? '#F59E0B' : '#EF4444'}}>
                 <svg viewBox="0 0 36 36" className="circular-chart-premium">
-                  <path className="circle-bg-premium"
+                  <path className="circle-bg-premium" fill="none"
                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   />
-                  <path className="circle-progress-premium" strokeDasharray={`${jobScore}, 100`}
+                  <path className="circle-progress-premium" fill="none" strokeDasharray={`${jobScore}, 100`}
                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   />
                 </svg>

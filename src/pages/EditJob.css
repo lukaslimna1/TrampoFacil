@@ -459,6 +459,7 @@
 .edit-form-content {
   position: relative;
   z-index: 1;
+  margin-top: 4rem;
 }
 
 .auth-footer-info p {

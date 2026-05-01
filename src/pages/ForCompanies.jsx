@@ -189,9 +189,10 @@ export default function ForCompanies() {
           <div className="fc-pricing-grid">
             <div className="fc-price-card">
               <div className="fc-price-badge-urgent">
-                <Flame size={14} /> <span>VAGA URGENTE</span>
+                <Flame size={14} color="#F59E0B" fill="#F59E0B" /> <span>VAGA URGENTE</span>
               </div>
               <h3 className="fc-plan-title">Vaga Urgente</h3>
+              <div className="fc-plan-price">R$ 9,90</div>
               <p className="fc-plan-desc">Para quem precisa contratar rápido</p>
               <ul className="fc-price-list">
                 <li><CheckCircle size={16} /> Destaque visual no feed</li>
@@ -199,15 +200,16 @@ export default function ForCompanies() {
                 <li><CheckCircle size={16} /> Maior volume de visualizações</li>
               </ul>
               <div className="fc-price-footer">
-                <button className="btn-price-primary">Destacar agora</button>
+                <Link to="/publicar" state={{ plan: 'urgent' }} className="btn-price-primary">Destacar agora</Link>
               </div>
             </div>
 
             <div className="fc-price-card featured">
               <div className="fc-price-badge-premium">
-                <Gem size={14} /> <span>DESTAQUE PREMIUM</span>
+                <Gem size={14} fill="#F59E0B" color="#F59E0B" /> <span>DESTAQUE PREMIUM</span>
               </div>
               <h3 className="fc-plan-title text-white">Destaque Premium</h3>
+              <div className="fc-plan-price text-white">R$ 29,90</div>
               <p className="fc-plan-desc text-white">Máxima visibilidade na plataforma</p>
               <ul className="fc-price-list text-white">
                 <li><CheckCircle size={16} /> Vaga fixada no topo</li>
@@ -215,7 +217,7 @@ export default function ForCompanies() {
                 <li><CheckCircle size={16} /> Maior taxa de cliques e conversão</li>
               </ul>
               <div className="fc-price-footer">
-                <button className="btn-price-vip">Seja destaque VIP</button>
+                <Link to="/publicar" state={{ plan: 'premium' }} className="btn-price-vip">Seja destaque VIP</Link>
               </div>
             </div>
           </div>

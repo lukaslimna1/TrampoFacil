@@ -9,11 +9,12 @@ import { Link } from 'react-router-dom';
 import { useToast } from '../context/ToastContextCore';
 import { 
   FiSend, FiMail, FiMessageCircle, 
-  FiShield, FiBriefcase, FiUsers 
+  FiShield, FiBriefcase, FiUsers, FiCheckCircle 
 } from 'react-icons/fi';
 import { 
   FaLinkedin, FaInstagram, FaWhatsapp 
 } from 'react-icons/fa';
+import { supabase } from '../lib/supabase';
 import './Contact.css';
 
 export default function Contact() {
@@ -21,9 +22,11 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: 'Candidato',
+    subject: 'Outro',
     message: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,20 +47,33 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    showToast("Mensagem recebida! Nossa equipe entrará em contato em breve. 🚀", "success");
-    
-    // Limpa o formulário após o envio bem sucedido
-    setFormData({
-      name: '',
-      email: '',
-      subject: 'Candidato',
-      message: ''
-    });
-    
-    // Reseta o scroll do formulário se necessário
-    e.target.reset();
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([formData]);
+
+      if (error) throw error;
+
+      showToast("Mensagem enviada com sucesso! Responderemos em breve. 🚀", "success");
+      
+      setFormData({
+        name: '',
+        email: '',
+        subject: 'Outro',
+        message: ''
+      });
+      
+      e.target.reset();
+    } catch (err) {
+      console.error("Erro ao enviar contato:", err);
+      showToast("Erro ao enviar mensagem. Tente novamente ou use nossos canais diretos.", "error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -195,9 +211,19 @@ export default function Contact() {
               </div>
 
               <div className="form-footer-v4">
-                <button type="submit" className="btn-v4-main">
-                  <span>Enviar Mensagem Agora</span>
-                  <FiSend size={18} />
+                <button 
+                  type="submit" 
+                  className={`btn-v4-main ${isSubmitting ? 'loading' : ''}`}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <div className="loader-inline"></div>
+                  ) : (
+                    <>
+                      <span>Enviar Mensagem Agora</span>
+                      <FiSend size={18} />
+                    </>
+                  )}
                 </button>
                 <p className="form-privacy-note">
                   Ao enviar, você concorda com nossa <Link to="/legal/privacidade">Política de Privacidade</Link>.

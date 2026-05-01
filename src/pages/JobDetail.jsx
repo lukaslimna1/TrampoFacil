@@ -14,7 +14,7 @@ import { JobDetailSkeleton } from '../components/JobDetailSkeleton';
 import './JobDetail.css';
 
 import { 
-  Bookmark, Flame, Banknote, Briefcase, MapPin, Clock, Star, 
+  Bookmark, Flame, Banknote, Briefcase, MapPin, Clock, Gem, 
   Users, BarChart, Utensils, Laptop, TrendingUp, HeartPulse, GraduationCap, 
   Gift, ShieldCheck, Building2, FileText, Mail, MessageCircle, ExternalLink, ArrowLeft,
   ListChecks, Target, Award, Share2, Sparkles
@@ -46,19 +46,36 @@ export function JobDetail({ inlineJobId }) {
   const params = useParams();
   const id = inlineJobId || params.id;
   const isInline = !!inlineJobId;
-  const { getJobById, isLoading, isJobSaved, toggleSavedJob, incrementJobViews, isJobHot, isUrgencyActive } = useJobs();
-  // Deriva a vaga baseada no ID (evita cascata de re-renders)
-  const job = useMemo(() => getJobById(id), [getJobById, id]);
+  const { getJobById, fetchJobById, isJobSaved, toggleSavedJob, incrementJobViews, isJobHot, isUrgencyActive } = useJobs();
+  
+  const [job, setJob] = useState(null);
+  const [localLoading, setLocalLoading] = useState(true);
   
   const [activeTab, setActiveTab] = useState('vaga');
 
   useEffect(() => {
-    if (!isLoading && job) {
-      incrementJobViews(id);
-    }
-  }, [id, isLoading, job, incrementJobViews]);
+    const loadJob = async () => {
+      setLocalLoading(true);
+      // Tenta pegar do contexto primeiro (mais rápido)
+      let foundJob = getJobById(id);
+      
+      // Se não achar (vaga inativa/pendente), busca direto no banco
+      if (!foundJob) {
+        foundJob = await fetchJobById(id);
+      }
+      
+      setJob(foundJob);
+      setLocalLoading(false);
 
-  if (isLoading) return <JobDetailSkeleton isInline={isInline} />;
+      if (foundJob) {
+        incrementJobViews(id);
+      }
+    };
+
+    loadJob();
+  }, [id, getJobById, fetchJobById, incrementJobViews]);
+
+  if (localLoading) return <JobDetailSkeleton isInline={isInline} />;
   if (!job) return <div className="container" style={{ padding: '2rem' }}><h3>Vaga não encontrada ou expirada.</h3><Link to="/">Voltar ao início</Link></div>;
 
   // Obtém o tipo do ícone (sem criar componente durante o render)
@@ -161,19 +178,19 @@ export function JobDetail({ inlineJobId }) {
             </div>
             <div className="job-header-text">
               <div className="jd-header-badges">
-                {job.is_featured && <span className="jd-badge-vip"><Star size={12} fill="currentColor" /> Destaque Premium</span>}
-                {isHot && (
-                  <span className={`jd-badge-urgent ${isUrgentActive ? 'is-manual-urgent' : ''}`}>
-                    <Flame size={12} /> {isUrgentActive ? 'Vaga Urgente' : 'Em Alta'}
+                {job.is_featured && <span className="jd-badge-vip"><Gem size={12} fill="#F59E0B" color="#F59E0B" /> Destaque Premium</span>}
+                {isUrgentActive && (
+                  <span className="jd-badge-urgent is-manual-urgent">
+                    <Flame size={12} fill="#F59E0B" color="#F59E0B" /> Vaga Urgente
                   </span>
                 )}
                 <div className="jd-score-display-premium" style={{'--score-color': salaryEval.color}}>
                   <div className="jd-score-circle">
                     <svg viewBox="0 0 36 36" className="jd-circular-chart">
-                      <path className="circle-bg"
+                      <path className="circle-bg" fill="none"
                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                       />
-                      <path className="circle-progress" strokeDasharray={`${jobScore}, 100`}
+                      <path className="circle-progress" fill="none" strokeDasharray={`${jobScore}, 100`}
                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                       />
                     </svg>

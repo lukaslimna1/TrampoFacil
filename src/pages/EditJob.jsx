@@ -15,7 +15,7 @@ import './EditJob.css';
 export function EditJob() {
   const { showToast } = useToast();
   const { token: urlToken } = useParams();
-  const { getJobByToken, updateJob, deleteJob, getJobsByEmail, isContextLoading } = useJobs();
+  const { getJobByToken, fetchJobByToken, updateJob, deleteJob, getJobsByEmail, isContextLoading } = useJobs();
   const navigate = useNavigate();
   
   // Estados de Navegação Interna
@@ -25,32 +25,54 @@ export function EditJob() {
   const [email, setEmail] = useState('');
   
   // Estados de Dados e UI
+  const [job, setJob] = useState(null);
+  const [localLoading, setLocalLoading] = useState(true);
   const [recoveredJobs, setRecoveredJobs] = useState([]); // Armazena as vagas para o simulador
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Deriva a vaga baseada no token ativo
-  const job = useMemo(() => {
-    if (!activeToken || isContextLoading) return null;
-    return getJobByToken(activeToken);
-  }, [activeToken, isContextLoading, getJobByToken]);
-
   // Efeito para validar token da URL ou entrada manual
   useEffect(() => {
-    if (activeToken && !isContextLoading && !job) {
-      showToast('Token inválido ou não encontrado.', 'error');
-    }
-  }, [activeToken, isContextLoading, job, showToast]);
+    const loadJob = async () => {
+      if (!activeToken) {
+        setLocalLoading(false);
+        return;
+      }
+
+      setLocalLoading(true);
+      // Tenta pegar do contexto primeiro (mais rápido)
+      let foundJob = getJobByToken(activeToken);
+      
+      // Se não achar (vaga inativa/pendente), busca direto no banco
+      if (!foundJob) {
+        foundJob = await fetchJobByToken(activeToken);
+      }
+      
+      setJob(foundJob);
+      setLocalLoading(false);
+
+      if (activeToken && !foundJob && !isContextLoading) {
+        showToast('Token inválido ou não encontrado.', 'error');
+      }
+    };
+
+    loadJob();
+  }, [activeToken, getJobByToken, fetchJobByToken, isContextLoading, showToast]);
 
   // Ação: Acessar via Token
-  const handleTokenAccess = (e, manualToken) => {
+  const handleTokenAccess = async (e, manualToken) => {
     if (e) e.preventDefault();
     const targetToken = manualToken || tokenInput;
     
     setIsLoading(true);
     
-    const foundJob = getJobByToken(targetToken);
+    // Tenta validar o token antes de carregar
+    let foundJob = getJobByToken(targetToken);
+    if (!foundJob) {
+      foundJob = await fetchJobByToken(targetToken);
+    }
+
     if (foundJob) {
       setActiveToken(targetToken);
       setTokenInput(targetToken);
@@ -88,11 +110,19 @@ export function EditJob() {
   const handleUpdate = async (updatedData) => {
     try {
       setIsSubmitting(true);
-      await updateJob(activeToken, updatedData);
+      const result = await updateJob(activeToken, updatedData);
       showToast('Vaga atualizada com sucesso!', 'success');
-      navigate(`/vaga/${job.id}`);
-    } catch {
+      
+      // Se não for um upgrade pago, navegamos para a vaga
+      if (updatedData.payment_status !== 'pending') {
+        navigate(`/vaga/${job.id}`);
+      }
+      
+      return result; 
+    } catch (err) {
+      console.error("Erro no handleUpdate:", err);
       showToast("Erro ao atualizar vaga.", "error");
+      throw err;
     } finally {
       setIsSubmitting(false);
     }
@@ -115,6 +145,15 @@ export function EditJob() {
 
   // --- TELA DE ACESSO (TOKEN OU RECUPERAÇÃO) ---
   if (!job) {
+    if (activeToken && localLoading) {
+      return (
+        <div className="manage-auth-page">
+          <div className="auth-card-premium animate-in text-center">
+            <p>Verificando token...</p>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="manage-auth-page">
         <div className="auth-card-premium animate-in">

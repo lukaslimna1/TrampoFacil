@@ -6,6 +6,7 @@
  * e o motor de análise em tempo real 'trampoAI' para feedback ao recrutador.
  */
 import { useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useToast } from '../context/ToastContextCore';
 import './JobForm.css';
 import trampoAI from '../utils/trampoAI';
@@ -13,8 +14,11 @@ import {
   ShieldCheck, Zap, Star, Briefcase, Users, Eye, Phone, MapPin, Smile, 
   DollarSign, Clock, FileText, BarChart, Building2, Link2, ClipboardList, 
   Target, Award, ListChecks, Utensils, Laptop, TrendingUp, HeartPulse, 
-  GraduationCap, Gift, Baby, MessageSquare, Mail, ExternalLink, Navigation, Sparkles, Rocket
+  GraduationCap, Gift, Baby, MessageSquare, Mail, ExternalLink, Navigation, Sparkles, Rocket, Gem, CreditCard, Flame
 } from 'lucide-react';
+import { stripeService } from '../services/stripeService';
+import { PaymentModal } from './PaymentModal';
+import './PaymentModal.css';
 
 const BENEFIT_CATEGORIES = [
   {
@@ -145,6 +149,9 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
   const { showToast } = useToast();
   const isEdit = !!initialData;
 
+  const location = useLocation();
+  const initialPlan = location.state?.plan;
+
   const [formData, setFormData] = useState(() => {
     if (initialData) {
       return {
@@ -153,9 +160,17 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
         beneficios_lista: initialData.beneficios_lista || []
       };
     }
-    return DEFAULT_FORM;
+    
+    // Se veio da página Para Empresas com um plano pré-selecionado
+    const baseForm = { ...DEFAULT_FORM };
+    if (initialPlan === 'urgent') baseForm.is_urgent = true;
+    if (initialPlan === 'premium') baseForm.is_featured = true;
+    
+    return baseForm;
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   // Removido estado de erro local para usar Toasts globais
   // const [error, setError] = useState('');
 
@@ -163,6 +178,14 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
   const [isConfidencial, setIsConfidencial] = useState(false);
   const [isSalarioACombinar, setIsSalarioACombinar] = useState(false);
   const [isHorarioOculto, setIsHorarioOculto] = useState(false);
+
+  // Estados Pagamento (Modal)
+  const [paymentModal, setPaymentModal] = useState({
+    isOpen: false,
+    plan: null,
+    checkoutUrl: '',
+    jobId: null
+  });
 
   // Estados Locais API IBGE
   const [estados, setEstados] = useState([]);
@@ -316,14 +339,28 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
     }
 
     // Validação de contato
-    const { whatsapp, email, link } = formData.contato;
+    const contato = formData.contato || {};
+    const { whatsapp, email, link } = contato;
     if (!whatsapp && !email && !link) {
       showToast('É obrigatório informar pelo menos um meio de contato (WhatsApp, Email ou Link)', 'warning');
       return;
     }
 
-    // Aplicar máscaras de UX antes de enviar
-    const formDataTratado = { ...formData, cidade: finalCidade };
+    // Lógica de Planos Cumulativos (Soma de Valores)
+    let calculatedPlan = 'free';
+    if (formData.is_featured && formData.is_urgent) {
+      calculatedPlan = 'combo'; // R$ 39,80 (29,90 + 9,90)
+    } else if (formData.is_featured) {
+      calculatedPlan = 'premium'; // R$ 29,90
+    } else if (formData.is_urgent) {
+      calculatedPlan = 'urgente'; // R$ 9,90
+    }
+
+    const formDataTratado = { 
+      ...formData, 
+      cidade: finalCidade,
+      plan_type: calculatedPlan
+    };
 
     if (isConfidencial) {
       formDataTratado.empresa = 'Empresa Confidencial';
@@ -337,8 +374,53 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
       formDataTratado.horario = '';
     }
 
-    // setError('');
-    onSubmit(formDataTratado);
+    const processSubmission = async () => {
+      setIsSubmitting(true);
+      try {
+        // Se for um plano pago, primeiro criamos a vaga como pendente
+        if (formDataTratado.plan_type !== 'free') {
+          const result = await onSubmit({ 
+            ...formDataTratado, 
+            payment_status: 'pending',
+            is_active: false 
+          });
+          
+          if (result && result.id) {
+            showToast('Preparando checkout seguro...', 'info');
+            
+            // CHAMADA PRO: Cria a sessão dinâmica no Stripe
+            try {
+              const checkoutUrl = await stripeService.createDynamicCheckout(formDataTratado.plan_type, result.id);
+              
+              setPaymentModal({
+                isOpen: true,
+                plan: formDataTratado.plan_type,
+                checkoutUrl: checkoutUrl,
+                jobId: result.id
+              });
+              showToast('Vaga salva! Finalize o pagamento para publicar.', 'info');
+            } catch (stripeErr) {
+              console.error("DETALHE DO ERRO STRIPE:", stripeErr);
+              const detail = stripeErr.message || 'Erro na comunicação com o servidor';
+              showToast(`Erro no Checkout: ${detail}`, 'error');
+            }
+          }
+        } else {
+          await onSubmit({ 
+            ...formDataTratado, 
+            payment_status: 'free',
+            is_active: true 
+          });
+        }
+      } catch (err) {
+        console.error("Erro no processamento do formulário:", err);
+        showToast(`Erro ao processar sua solicitação: ${err.message || 'Erro desconhecido'}`, 'error');
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+
+    processSubmission();
   };
 
   const formatCurrency = (value) => {
@@ -359,6 +441,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
   };
 
   return (
+    <>
     <div className={`job-form-page-wrapper ${hideHero ? 'no-hero' : ''}`}>
       {/* HERO RECRUITER PREMIUM (Style from Home) */}
       {!hideHero && (
@@ -525,7 +608,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
           <div className="premium-cards-grid">
             <label className={`premium-feature-card urgent ${formData.is_urgent ? 'active' : ''}`}>
               <input type="checkbox" name="is_urgent" checked={formData.is_urgent} onChange={handleChange} />
-              <div className="premium-card-icon">🔥</div>
+              <div className="premium-card-icon"><Flame size={24} color="#F59E0B" fill="#F59E0B" /></div>
               <div className="premium-card-info">
                 <div className="premium-card-top">
                   <span>Vaga Urgente</span>
@@ -540,7 +623,7 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
 
             <label className={`premium-feature-card featured ${formData.is_featured ? 'active' : ''}`}>
               <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} />
-              <div className="premium-card-icon">💎</div>
+              <div className="premium-card-icon"><Gem size={24} color="#F59E0B" fill="#F59E0B" /></div>
               <div className="premium-card-info">
                 <div className="premium-card-top">
                   <span>Destaque Premium</span>
@@ -905,8 +988,8 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
           <div className="ai-main-score-center">
             <div className="score-circle-large" style={{"--score-percent": jobScore, "--score-color": jobScore > 80 ? '#10B981' : jobScore > 60 ? '#F59E0B' : '#EF4444'}}>
               <svg viewBox="0 0 36 36" className="circular-chart-premium">
-                <path className="circle-bg-premium" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path className="circle-progress-premium" strokeDasharray={`${jobScore}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="circle-bg-premium" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="circle-progress-premium" fill="none" strokeDasharray={`${jobScore}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
               </svg>
               <div className="score-inner-content">
                 <span className="score-number-large">{jobScore}</span>
@@ -955,8 +1038,20 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
              </div>
           </div>
 
-          <button type="submit" form="main-job-form" className="btn-publish-recruiter">
-            <Rocket size={20} /> {buttonText}
+          <button 
+            type="submit" 
+            form="main-job-form" 
+            className={`btn-publish-recruiter ${isSubmitting ? 'loading' : ''}`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <div className="loader-inline"></div>
+            ) : (
+              <>
+                {formData.is_urgent || formData.is_featured ? <CreditCard size={20} /> : <Rocket size={20} />}
+                {formData.is_urgent || formData.is_featured ? 'Pagar e Publicar' : buttonText}
+              </>
+            )}
           </button>
           
           <div className="ai-footer-info">
@@ -967,5 +1062,14 @@ export function JobForm({ initialData, onSubmit, buttonText, title, subtitle, hi
       </div>
     </div>
   </div>
+  
+  <PaymentModal 
+    isOpen={paymentModal.isOpen}
+    onClose={() => setPaymentModal(prev => ({ ...prev, isOpen: false }))}
+    plan={paymentModal.plan}
+    checkoutUrl={paymentModal.checkoutUrl}
+    jobId={paymentModal.jobId}
+  />
+  </>
   );
 }

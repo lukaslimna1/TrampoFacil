@@ -63,7 +63,7 @@ export function Home() {
 
   const dynamicStories = useMemo(() => [
     { id: 'todos', label: 'Tudo', icon: <Briefcase size={20} /> },
-    { id: 'hot', label: 'Em Alta', icon: <Flame size={20} />, isHot: true },
+    { id: 'hot', label: 'Vagas Urgentes', icon: <Flame size={20} fill="#F59E0B" color="#F59E0B" />, isHot: true },
     { id: 'inclusao', label: 'Inclusão', icon: <Accessibility size={20} /> },
     { id: 'remoto', label: 'Remoto', icon: <HomeIcon size={20} /> }
   ], []);

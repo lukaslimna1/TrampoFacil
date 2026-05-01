@@ -31,6 +31,7 @@ export function Header() {
         </Link>
         
         <nav className="nav-links">
+          <Link to="/" className="nav-link">Explorar Vagas</Link>
           <Link to="/sobre" className="nav-link hidden-mobile">Sobre</Link>
           <Link to="/para-empresas" className="nav-link hidden-mobile">Para Empresas</Link>
           <Link to="/contato" className="nav-link hidden-mobile">Contato</Link>

@@ -461,7 +461,21 @@
   font-size: 1.75rem;
   font-weight: 900;
   line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.fc-plan-price {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #2eb9b9;
   margin-bottom: 0.5rem;
+}
+
+.fc-plan-price::after {
+  content: " / único";
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #94a3b8;
 }
 
 .fc-plan-desc {
